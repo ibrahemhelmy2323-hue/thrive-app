@@ -1,7 +1,8 @@
 const CACHE_NAME = 'thrive-v1';
 const ASSETS = [
   './index.html',
-  './logo.svg',
+  './logo-192.png',
+  './logo-512.png',
   './manifest.json'
 ];
 
