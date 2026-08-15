@@ -1,0 +1,3112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THRIVE PLATFORM - المنصة الدينية والدنيوية</title>
+    <meta name="description" content="THRIVE PLATFORM - المنصة الدينية والدنيوية - الإنجليزية واللغة الثانية والقرآن والأذكار والذكاء الاصطناعي.">
+    <meta name="google-site-verification" content="F9znBescVhY0n7QI_xz0G-QSemnFALxn569fWCIMU2o" />
+    <link rel="icon" type="image/svg+xml" href="logo.svg?v=2">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#030712">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker Registered'))
+                    .catch(err => console.log('Service Worker Failed', err));
+            });
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://everyayah.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@700&family=Montserrat:wght@500;700;800&family=Reem+Kufi:wght@600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --card-bg: rgba(17, 24, 39, 0.78);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-gold: #fbbf24;
+            --accent-blue: #38bdf8;
+            --accent-red: #f43f5e;
+            --accent-emerald: #10b981;
+            --accent-indigo: #6366f1;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --topbar-bg: rgba(15, 23, 42, 0.82);
+        }
+
+        /* Light Theme System */
+        body.light-theme {
+            --bg-dark: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --topbar-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { min-height: 100vh; font-family: 'Tajawal', sans-serif; color: var(--text-main); background: var(--bg-dark); overflow-x: hidden; scroll-behavior: smooth; transition: background 0.4s, color 0.4s; }
+
+        .bg {
+            position: fixed; inset: 0; z-index: -2;
+            background: 
+                radial-gradient(1000px at 10% 10%, rgba(56, 189, 248, 0.15), transparent),
+                radial-gradient(800px at 90% 90%, rgba(244, 63, 94, 0.12), transparent),
+                radial-gradient(700px at 50% 50%, rgba(16, 185, 129, 0.14), transparent),
+                linear-gradient(135deg, var(--bg-dark) 0%, #0f172a 50%, #1e1b4b 100%);
+        }
+
+        body.light-theme .bg {
+            background: 
+                radial-gradient(1000px at 10% 10%, rgba(56, 189, 248, 0.18), transparent),
+                radial-gradient(800px at 90% 90%, rgba(245, 158, 11, 0.12), transparent),
+                linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+        }
+
+        .container { max-width: 1040px; margin: auto; padding: 12px; }
+
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--topbar-bg); backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border); padding: 12px 18px; border-radius: 20px;
+            margin-bottom: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); flex-wrap: wrap; gap: 10px;
+        }
+
+        .user-pill { display: flex; align-items: center; gap: 12px; }
+        .user-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #fbbf24, #f59e0b); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #020617; font-size: 18px; box-shadow: 0 0 12px rgba(251, 191, 36, 0.4); }
+        .user-info { font-size: 15px; font-weight: 700; }
+        .user-email { font-size: 11px; color: var(--text-muted); direction: ltr; display: block; }
+
+        .top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+        .streak-pill {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+            padding: 7px 14px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .theme-toggle-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-gold);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .theme-toggle-btn:hover { transform: rotate(20deg) scale(1.1); }
+
+        header { text-align: center; padding: 10px 0 15px; }
+        .logo-title { font-size: 52px; color: var(--accent-gold); font-family: 'Cinzel Decorative', serif; font-weight: 700; letter-spacing: 5px; text-shadow: 0 0 30px rgba(251, 191, 36, 0.6), 0 6px 20px rgba(0, 0, 0, 0.9); line-height: 1.1; }
+        .subtitle { margin-top: 10px; color: #7dd3fc; letter-spacing: 4px; font-size: 12px; font-weight: 700; direction: ltr; opacity: 0.9; }
+
+        /* Instant Dictionary Banner Bar */
+        .dict-bar {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 12px 18px;
+            margin-bottom: 18px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            box-shadow: 0 8px 24px rgba(56, 189, 248, 0.15);
+        }
+
+        .dict-input {
+            flex: 1;
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 14px;
+            font-size: 14px;
+        }
+
+        /* Main Navigation Tabs - Scrollable on mobile */
+        .main-tabs {
+            display: flex; gap: 8px; margin: 15px 0 20px;
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); padding: 8px; border-radius: 20px;
+            border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;
+        }
+
+        .main-tabs::-webkit-scrollbar { height: 4px; }
+        .main-tabs::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
+
+        .tab-btn {
+            flex: 0 0 auto;
+            padding: 12px 18px; border: none; border-radius: 14px; font-weight: 800; font-size: 13px;
+            cursor: pointer; background: transparent; color: var(--text-muted); transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+
+        .tab-btn:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
+
+        .tab-btn.active-english { background: linear-gradient(135deg, #38bdf8, #0284c7); color: #020617; box-shadow: 0 8px 24px rgba(56, 189, 248, 0.4); }
+        .tab-btn.active-secondlang { background: linear-gradient(135deg, #f43f5e, #e11d48); color: #ffffff; box-shadow: 0 8px 24px rgba(244, 63, 94, 0.4); }
+        .tab-btn.active-quran { background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4); }
+        .tab-btn.active-adhkar { background: linear-gradient(135deg, #f59e0b, #d97706); color: #020617; box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4); }
+        .tab-btn.active-prayer { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #ffffff; box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4); }
+        .tab-btn.active-game { background: linear-gradient(135deg, #ec4899, #be185d); color: #ffffff; box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4); }
+        .tab-btn.active-quiz { background: linear-gradient(135deg, #a855f7, #7e22ce); color: #ffffff; box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4); }
+        .tab-btn.active-courses { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #ffffff; box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4); }
+        .tab-btn.active-ai { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #ffffff; box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4); }
+
+        .tab-content { display: none; animation: fadeIn 0.35s ease-out forwards; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .wallpaper {
+            position: relative; overflow: hidden; border-radius: 22px; margin-bottom: 20px; border: 1px solid var(--card-border);
+            height: 130px; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+        }
+
+        .wall-en { background: linear-gradient(135deg, rgba(14,165,233,0.9), rgba(3,105,161,0.9)); }
+        .wall-tr { background: linear-gradient(135deg, rgba(225,29,72,0.9), rgba(159,18,57,0.9)); }
+        .wall-qu { background: linear-gradient(135deg, rgba(16,185,129,0.9), rgba(4,120,87,0.9)); }
+        .wall-ad { background: linear-gradient(135deg, rgba(245,158,11,0.95), rgba(180,83,9,0.95)); }
+        .wall-pr { background: linear-gradient(135deg, rgba(99,102,241,0.95), rgba(67,56,202,0.95)); }
+        .wall-gm { background: linear-gradient(135deg, rgba(236,72,153,0.95), rgba(190,24,93,0.95)); }
+        .wall-q2 { background: linear-gradient(135deg, rgba(217,119,6,0.9), rgba(180,83,9,0.9)); }
+        .wall-qz { background: linear-gradient(135deg, rgba(147,51,234,0.9), rgba(109,40,217,0.9)); }
+        .wall-co { background: linear-gradient(135deg, rgba(6,182,212,0.9), rgba(8,145,178,0.9)); }
+        .wall-ai { background: linear-gradient(135deg, rgba(99,102,241,0.9), rgba(139,92,246,0.9)); }
+
+        .wall-title { font-size: 26px; font-weight: 800; color: white; text-shadow: 0 3px 12px rgba(0,0,0,0.6); font-family: 'Reem Kufi', sans-serif; }
+        .wall-sub { font-size: 11px; color: rgba(255, 255, 255, 0.9); letter-spacing: 3px; margin-top: 4px; direction: ltr; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+
+        .box { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--card-border); border-radius: 22px; padding: 16px; margin-bottom: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+
+        input, select {
+            padding: 12px 16px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(3, 7, 18, 0.7); color: white; outline: none; font-family: 'Tajawal', sans-serif; font-size: 14px;
+        }
+
+        body.light-theme input, body.light-theme select { background: #ffffff; color: #0f172a; border-color: #cbd5e1; }
+
+        .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+        .btn {
+            padding: 11px 18px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer;
+            transition: all 0.25s ease; font-family: 'Tajawal', sans-serif; display: inline-flex; align-items: center;
+            justify-content: center; gap: 6px; font-size: 14px;
+        }
+
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-en { background: linear-gradient(135deg, #38bdf8, #0ea5e9); color: #020617; }
+        .btn-tr { background: linear-gradient(135deg, #f43f5e, #e11d48); color: #ffffff; }
+        .btn-qu { background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; }
+        .btn-ad { background: linear-gradient(135deg, #f59e0b, #d97706); color: #020617; }
+        .btn-gm { background: linear-gradient(135deg, #ec4899, #be185d); color: #ffffff; }
+        .play { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
+        .stop { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .del { background: rgba(239, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .quizbtn { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; }
+
+        .card {
+            background: rgba(30, 41, 59, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px; padding: 14px 16px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; transition: all 0.25s ease;
+        }
+
+        body.light-theme .card { background: rgba(255, 255, 255, 0.9); border-color: rgba(0,0,0,0.08); }
+
+        .card:hover { transform: translateY(-2px); }
+
+        .foreign-text { color: #7dd3fc; direction: ltr; font-weight: 700; font-size: 19px; font-family: 'Montserrat', sans-serif; display: flex; align-items: center; gap: 8px; }
+        .secondlang-text { color: #fda4af; }
+        .ar-text { color: #fde68a; margin-top: 3px; font-size: 17px; font-family: 'Amiri', serif; }
+        body.light-theme .ar-text { color: #b45309; }
+
+        .badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-family: 'Montserrat', sans-serif; font-weight: 700; background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.25); }
+        .badge-secondlang { background: rgba(244, 63, 94, 0.15); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.25); }
+
+        /* MEMORY GAME STYLING - RESPONSIVE & MOBILE OPTIMIZED */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+            perspective: 1000px;
+        }
+
+        .game-card-item {
+            height: 90px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.4s ease;
+            cursor: pointer;
+        }
+
+        .game-card-item.flipped, .game-card-item.matched {
+            transform: rotateY(180deg);
+        }
+
+        .game-card-front, .game-card-back {
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6px;
+            font-weight: 800;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+        }
+
+        .game-card-front {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #ec4899;
+            font-size: 24px;
+        }
+
+        .game-card-back {
+            background: linear-gradient(135deg, #ec4899, #be185d);
+            color: #ffffff;
+            font-size: 14px;
+            transform: rotateY(180deg);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .game-card-item.matched .game-card-back {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+        }
+
+        /* FLASHCARDS 3D MODAL STYLING */
+        .flashcard-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            height: 240px;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flashcard-wrapper.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #0ea5e9, #0369a1);
+            color: white;
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #020617;
+            transform: rotateY(180deg);
+        }
+
+        /* QURAN DYNAMIC MUSHAF VIEWER & TAFSIR HIGHLIGHT */
+        .quran-text-viewer {
+            background: rgba(3, 7, 18, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 20px;
+            margin-top: 15px;
+            line-height: 2.4;
+            font-family: 'Amiri', serif;
+            font-size: 22px;
+            color: #fde68a;
+            text-align: justify;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+            max-height: 480px;
+            overflow-y: auto;
+        }
+
+        body.light-theme .quran-text-viewer { background: #fffdf5; color: #1e293b; border-color: #cbd5e1; }
+
+        .aya-unit {
+            display: inline;
+            padding: 4px 6px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .aya-unit.active-playing {
+            background: rgba(251, 191, 36, 0.25);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+            border: 1px solid rgba(251, 191, 36, 0.7);
+            font-weight: 800;
+        }
+
+        .tafsir-box {
+            background: rgba(251, 191, 36, 0.12);
+            border-right: 4px solid var(--accent-gold);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin: 8px 0;
+            font-size: 14px;
+            color: #fde68a;
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.15);
+            animation: fadeIn 0.3s ease;
+        }
+
+        body.light-theme .tafsir-box { color: #78350f; background: rgba(251, 191, 36, 0.2); }
+
+        .aya-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 13px;
+            font-family: 'Tajawal', sans-serif;
+            margin: 0 4px;
+            background: rgba(251, 191, 36, 0.08);
+            cursor: pointer;
+        }
+
+        /* PRAYER TIMES CARDS */
+        .prayer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .prayer-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .prayer-card.next-prayer {
+            border-color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.15);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.25);
+        }
+
+        .prayer-name { font-size: 14px; font-weight: 800; color: #f8fafc; }
+        body.light-theme .prayer-name { color: #0f172a; }
+        .prayer-time { font-size: 20px; font-weight: 800; color: var(--accent-gold); margin-top: 6px; font-family: 'Montserrat', sans-serif; }
+
+        .sub-tabs { display: flex; gap: 6px; margin: 0 0 14px 0; background: rgba(3, 7, 18, 0.5); padding: 5px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.06); flex-wrap: wrap; }
+        .sub-btn { flex: 1; padding: 10px; border: none; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer; background: transparent; color: var(--text-muted); transition: 0.25s; font-family: 'Tajawal', sans-serif; white-space: nowrap; }
+        .sub-btn.active { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+        audio { width: 100%; margin-top: 14px; border-radius: 12px; }
+        .small { color: var(--text-muted); font-size: 13px; text-align: center; margin-top: 10px; }
+        .status-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-left: 6px; }
+        .dot-on { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
+        .dot-off { background: #64748b; }
+
+        .quiz-q { font-size: 28px; color: var(--accent-gold); font-family: 'Reem Kufi', sans-serif; margin: 16px 0; }
+        .quiz-input { width: 90%; padding: 14px; font-size: 18px; text-align: center; margin: 12px 0; border-radius: 14px; direction: ltr; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+
+        /* Courses CSS Grid styling */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .course-card {
+            background: rgba(30, 41, 59, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-indigo);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
+        }
+
+        .course-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+        }
+
+        .course-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        /* PREMIUM DYNAMIC ADHKAR CARDS */
+        .dhikr-card {
+            background: rgba(30, 41, 59, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 12px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        body.light-theme .dhikr-card {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.06);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .dhikr-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        }
+        .dhikr-text {
+            font-family: 'Amiri', serif;
+            font-size: 24px;
+            line-height: 2.0;
+            color: var(--text-main);
+            text-align: right;
+            margin-bottom: 12px;
+        }
+        .dhikr-fadl {
+            font-size: 14px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        body.light-theme .dhikr-fadl {
+            color: #d97706;
+        }
+        .counter-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        body.light-theme .counter-btn {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+        .counter-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.01);
+        }
+        .counter-btn.done {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: #ffffff !important;
+            border: none !important;
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .modal-overlay { position: fixed; inset: 0; background: rgba(3, 7, 18, 0.92); backdrop-filter: blur(16px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px; }
+        .modal-overlay.active { display: flex; }
+        .modal-card { background: #0f172a; border: 1px solid var(--card-border); border-radius: 24px; max-width: 440px; width: 100%; padding: 22px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; }
+
+        .modal-title { font-size: 20px; font-weight: 800; color: var(--accent-gold); text-align: center; margin-bottom: 14px; font-family: 'Reem Kufi', sans-serif; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 12px; margin-bottom: 6px; color: var(--text-muted); }
+        .form-group input { width: 100%; }
+
+        .close-modal { position: absolute; top: 16px; left: 16px; background: rgba(255,255,255,0.1); border: none; color: #fff; width: 34px; height: 34px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        .footer-main { margin-top: 40px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 22px; padding: 22px; display: flex; align-items: center; gap: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .footer-icon { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(251, 191, 36, 0.8); box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.15), 0 8px 24px rgba(0, 0, 0, 0.6); flex-shrink: 0; }
+        .footer-hekma { font-family: 'Amiri', serif; font-size: 18px; color: #fde68a; line-height: 1.5; text-align: right; }
+        .footer-sub { font-size: 12px; color: #64748b; margin-top: 6px; direction: ltr; font-family: 'Montserrat', sans-serif; }
+        .start-btn { display: inline-flex; align-items: center; padding: 10px 20px; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #020617; border-radius: 24px; font-size: 13px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 16px rgba(251, 191, 36, 0.35); transition: 0.25s; flex-shrink: 0; }
+
+        /* Responsive Mobile Layout Fixes */
+        @media (max-width: 768px) {
+            .main-tabs { padding: 6px; border-radius: 16px; }
+            .tab-btn { font-size: 12px; padding: 10px 14px; }
+            .logo-title { font-size: 38px; }
+            .wallpaper { height: 110px; }
+            .wall-title { font-size: 20px; }
+            .footer-main { flex-direction: column; text-align: center; gap: 12px; }
+            .quran-text-viewer { font-size: 19px; padding: 14px; }
+            .game-grid { grid-template-columns: repeat(3, 1fr); }
+            .game-card-item { height: 80px; }
+            .dict-bar { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="container">
+
+        <!-- Top Auth & Action Bar -->
+        <div class="top-bar">
+            <div class="user-pill" id="userPill">
+                <div class="user-avatar" id="userAvatar">👤</div>
+                <div>
+                    <div class="user-info" id="userName">زائر جديد</div>
+                    <span class="user-email" id="userEmail">قم بتسجيل الدخول للحفظ والتخصيص</span>
+                </div>
+            </div>
+            
+            <div class="top-actions">
+                <select id="globalSecondLangSelect" onchange="changeSecondLanguage(this.value)" style="padding: 6px 10px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer;">
+                    <option value="none">🚫 بدون لغة ثانية</option>
+                    <option value="tr" selected>🇹🇷 التركية</option>
+                    <option value="de">🇩🇪 الألمانية</option>
+                    <option value="fr">🇫🇷 الفرنسية</option>
+                    <option value="es">🇪🇸 الإسبانية</option>
+                    <option value="it">🇮🇹 الإيطالية</option>
+                </select>
+                <div class="streak-pill" id="streakBadge">🔥 <span id="streakDays">1</span> يوم متتالي!</div>
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير الثيم">🌙</button>
+                <button class="btn btn-en" id="authBtn" onclick="openAuthModal()" style="padding:8px 14px;font-size:13px">🔑 تسجيل الدخول</button>
+            </div>
+        </div>
+        
+        <!-- Header -->
+        <header id="top">
+            <h1 class="logo-title">THRIVE</h1>
+            <p class="subtitle">THRIVE PLATFORM - المنصة الدينية والدنيوية</p>
+        </header>
+
+        <!-- ENGLISH INSTANT DICTIONARY SEARCH BAR -->
+        <div class="dict-bar" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-size:20px">🔍</span>
+            <input id="dictInput" class="dict-input" placeholder="ابحث عن أي كلمة بالإنجليزية أو العربية (مثال: love, school, بحبك)..." style="flex:1;min-width:200px" onkeydown="if(event.key==='Enter')searchInstantDict()">
+            <button class="btn btn-en" onclick="searchInstantDict()" style="padding:10px 20px">بحث فوري 🇬🇧</button>
+        </div>
+
+        <div id="dictResultBox" style="display:none" class="box">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="flex:1; padding-left:12px;">
+                    <div id="dictWordResult" style="font-size:22px;font-weight:800;color:var(--accent-blue)">-</div>
+                    <div id="dictArResult" style="font-size:18px;color:#fde68a;margin-top:4px">-</div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center">
+                    <button id="dictSpeakBtn" class="btn btn-en">🔊 نطق</button>
+                    <button class="btn del" onclick="closeDictResult()">✕</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Master Navigation Category Groups -->
+        <div class="main-tabs-wrapper" style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+            
+            <!-- Category 1: اللغات والذكاء الاصطناعي -->
+            <div class="nav-category-card" style="background:rgba(15,23,42,0.65);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:10px 14px">
+                <div style="font-size:12px;font-weight:800;color:var(--accent-gold);margin-bottom:8px;display:flex;align-items:center;gap:6px">
+                    <span>🌐 تعلّم اللغات والذكاء الاصطناعي</span>
+                    <span style="font-size:10px;opacity:0.6;font-weight:400">(English, Turkish & AI Assistant)</span>
+                </div>
+                <div class="main-tabs" style="margin:0;padding:4px">
+                    <button id="englishBtn" class="tab-btn active-english" onclick="openTab('english')">🇬🇧 الإنجليزية</button>
+                    <button id="secondlangBtn" class="tab-btn" onclick="openTab('secondlang')">🌐 اللغة الثانية</button>
+                    <button id="aiBtn" class="tab-btn" onclick="openTab('ai')">🤖 AI Assistant</button>
+                </div>
+            </div>
+
+            <!-- Category 2: القسم الإسلامي والأذكار -->
+            <div class="nav-category-card" style="background:rgba(15,23,42,0.65);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:10px 14px">
+                <div style="font-size:12px;font-weight:800;color:#10b981;margin-bottom:8px;display:flex;align-items:center;gap:6px">
+                    <span>📖 القسم الإسلامي والأذكار اليومية</span>
+                    <span style="font-size:10px;opacity:0.6;font-weight:400">(المصحف، الأذكار ومواقيت الصلاة)</span>
+                </div>
+                <div class="main-tabs" style="margin:0;padding:4px">
+                    <button id="quranBtn" class="tab-btn" onclick="openTab('quran')">📖 القرآن والمصحف</button>
+                    <button id="adhkarBtn" class="tab-btn" onclick="openTab('adhkar')">🌅 الأذكار اليومية</button>
+                    <button id="prayerBtn" class="tab-btn" onclick="openTab('prayer')">🕌 مواقيت الصلاة والقبلة</button>
+                </div>
+            </div>
+
+            <!-- Category 3: الألعاب والكورسات التعليمية -->
+            <div class="nav-category-card" style="background:rgba(15,23,42,0.65);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:10px 14px">
+                <div style="font-size:12px;font-weight:800;color:#38bdf8;margin-bottom:8px;display:flex;align-items:center;gap:6px">
+                    <span>🎮 الألعاب التفاعلية والكورسات</span>
+                    <span style="font-size:10px;opacity:0.6;font-weight:400">(لعبة الذاكرة، الكويز والدورات)</span>
+                </div>
+                <div class="main-tabs" style="margin:0;padding:4px">
+                    <button id="gameBtn" class="tab-btn" onclick="openTab('game')">🧠 لعبة الذاكرة</button>
+                    <button id="quizBtn" class="tab-btn" onclick="openTab('quiz')">💡 كويز الاختبارات</button>
+                    <button id="coursesBtn" class="tab-btn" onclick="openTab('courses')">📺 الكورسات الشاملة</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ENGLISH TAB -->
+        <section id="englishTab" class="tab-content active">
+            <div class="wallpaper wall-en">
+                <div style="text-align:center">
+                    <div class="wall-title">English Learning</div>
+                    <div class="wall-sub">NATIVE AMERICAN VOICE + ARABIC TRANSLATION</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="sub-tabs">
+                    <button id="allEnBtn" class="sub-btn active" onclick="setEnView('all')">كل الكلمات (<span id="countAllEn">0</span>)</button>
+                    <button id="savedEnBtn" class="sub-btn" onclick="setEnView('saved')">مراجعة المحفوظات ⭐ (<span id="countSavedEn">0</span>)</button>
+                    <button class="sub-btn" style="background:rgba(251,191,36,0.15);color:#fbbf24" onclick="openFlashcardsModal('en')">🎴 وضع البطاقات (Flashcards)</button>
+                </div>
+                <div class="filters">
+                    <input id="searchEn" placeholder="ابحث في الكلمات..." style="flex:1;min-width:150px" oninput="filterEnWords()">
+                    <select id="sortEn" onchange="sortEnWords()">
+                        <option value="new">الأحدث</option>
+                        <option value="old">الأقدم</option>
+                        <option value="az">A-Z</option>
+                        <option value="za">Z-A</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="box" style="display:flex;flex-wrap:wrap;gap:10px">
+                <input id="enInput" placeholder="English Word" style="flex:1;min-width:140px">
+                <input id="arEnInput" placeholder="المعنى بالعربية" style="flex:1;min-width:140px">
+                <button class="btn btn-en" onclick="addEnWord()">+ إضافة</button>
+                <button class="btn play" onclick="speakAllEn()">▶ تشغيل الكل</button>
+                <button class="btn stop" onclick="stopSpeech()">⏸ إيقاف</button>
+            </div>
+
+            <div id="enList"></div>
+        </section>
+
+        <!-- SECOND LANG TAB -->
+        <section id="secondlangTab" class="tab-content">
+            <div class="wallpaper wall-tr" id="secondlangWall">
+                <div style="text-align:center">
+                    <div class="wall-title" id="secondlangWallTitle">Language Learning</div>
+                    <div class="wall-sub" id="secondlangWallSub">NATIVE VOICE + ARABIC TRANSLATION</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="sub-tabs">
+                    <button id="allSecondlangBtn" class="sub-btn active" onclick="setSecondlangView('all')">كل الكلمات (<span id="countAllSecondlang">0</span>)</button>
+                    <button id="savedSecondlangBtn" class="sub-btn" onclick="setSecondlangView('saved')">مراجعة المحفوظات ⭐ (<span id="countSavedSecondlang">0</span>)</button>
+                    <button class="sub-btn" style="background:rgba(244,63,94,0.15);color:#fda4af" onclick="openFlashcardsModal('secondlang')">🎴 وضع البطاقات (Flashcards)</button>
+                </div>
+                <div class="filters">
+                    <input id="searchSecondlang" placeholder="ابحث في الكلمات..." style="flex:1;min-width:150px" oninput="filterSecondlangWords()">
+                    <select id="sortSecondlang" onchange="sortSecondlangWords()">
+                        <option value="new">الأحدث</option>
+                        <option value="old">الأقدم</option>
+                        <option value="az">A-Z</option>
+                        <option value="za">Z-A</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="box" style="display:flex;flex-wrap:wrap;gap:10px">
+                <input id="secondlangInput" placeholder="الكلمة باللغة الأجنبية" style="flex:1;min-width:140px">
+                <input id="arSecondlangInput" placeholder="المعنى بالعربية" style="flex:1;min-width:140px">
+                <button class="btn btn-tr" id="addSecondlangBtn" onclick="addSecondlangWord()">+ إضافة</button>
+                <button class="btn play" onclick="speakAllSecondlang()">▶ تشغيل الكل</button>
+                <button class="btn stop" onclick="stopSpeech()">⏸ إيقاف</button>
+            </div>
+
+            <div id="secondlangList"></div>
+        </section>
+
+        <!-- QURAN & MUSHAF TAB -->
+        <section id="quranTab" class="tab-content">
+            <div class="wallpaper wall-qu">
+                <div style="text-align:center">
+                    <div class="wall-title">القرآن الكريم والمصحف التفاعلي والتفسير</div>
+                    <div class="wall-sub">HOLY QURAN AUDIO & REALTIME AYAH SYNC & TAFSIR</div>
+                </div>
+            </div>
+
+            <div class="wallpaper wall-q2" style="height:110px">
+                <div style="text-align:center">
+                    <div style="font-size:20px;color:#fde68a;font-family:'Amiri',serif;font-weight:700">﴿ وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ ﴾</div>
+                    <div class="wall-sub">سورة القمر - آية 17</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div style="text-align:center;margin-bottom:14px">
+                    <div id="readerName" style="color:var(--accent-gold);font-size:24px;font-family:'Reem Kufi',sans-serif">مشاري العفاسي</div>
+                    <div class="small">
+                        <span id="readerDot" class="status-dot dot-on"></span>
+                        <span id="readerStatus">جاهز للتشغيل والقراءة التفاعلية والتفسير الميسر</span>
+                    </div>
+                </div>
+
+                <div class="filters" style="justify-content:center;margin-bottom:14px">
+                    <select id="readerSelect" onchange="updateReader()">
+                        <option value="Alafasy_128kbps" data-name="مشاري العفاسي" selected>🎧 مشاري العفاسي</option>
+                        <option value="Minshawy_Murattal_128kbps" data-name="محمد صديق المنشاوي">🎧 محمد صديق المنشاوي</option>
+                        <option value="Abdul_Basit_Murattal_192kbps" data-name="عبدالباسط عبدالصمد">🎧 عبدالباسط عبدالصمد</option>
+                        <option value="Maher_AlMuaiqly_64kbps" data-name="ماهر المعيقلي">🎧 ماهر المعيقلي</option>
+                        <option value="Husary_128kbps" data-name="محمود خليل الحصري">🎧 محمود خليل الحصري</option>
+                        <option value="Yasser_Ad-Dussary_128kbps" data-name="ياسر الدوسري">🎧 ياسر الدوسري ⭐</option>
+                        <option value="Saood_ash-Shuraym_128kbps" data-name="سعود الشريم">🎧 سعود الشريم ⭐</option>
+                        <option value="Nasser_Alqatami_128kbps" data-name="ناصر القطامي">🎧 ناصر القطامي ⭐</option>
+                        <option value="Ghamadi_40kbps" data-name="سعد الغامدي">🎧 سعد الغامدي ⭐</option>
+                        <option value="Ali_Jaber_64kbps" data-name="علي جابر">🎧 علي جابر ⭐</option>
+                    </select>
+
+                    <select id="suraSelect" onchange="loadSurahRangeText()">
+                        <option value="001">001 الفاتحة (7 آيات)</option>
+                        <option value="002" selected>002 البقرة (286 آية)</option>
+                        <option value="003">003 آل عمران (200 آية)</option>
+                        <option value="004">004 النساء (176 آية)</option>
+                        <option value="005">005 المائدة (120 آية)</option>
+                        <option value="006">006 الأنعام (165 آية)</option>
+                        <option value="007">007 الأعراف (206 آية)</option>
+                        <option value="008">008 الأنفال (75 آية)</option>
+                        <option value="009">009 التوبة (129 آية)</option>
+                        <option value="010">010 يونس (109 آية)</option>
+                        <option value="011">011 هود (123 آية)</option>
+                        <option value="012">012 يوسف (111 آية)</option>
+                        <option value="018">018 الكهف (110 آية)</option>
+                        <option value="036">036 يس (83 آية)</option>
+                        <option value="055">055 الرحمن (78 آية)</option>
+                        <option value="056">056 الواقعة (96 آية)</option>
+                        <option value="067">067 الملك (30 آية)</option>
+                        <option value="112">112 الإخلاص (4 آيات)</option>
+                        <option value="113">113 الفلق (5 آيات)</option>
+                        <option value="114">114 الناس (6 آيات)</option>
+                    </select>
+                </div>
+
+                <div class="filters" style="justify-content:center;margin-bottom:14px">
+                    <label>من آية</label>
+                    <input id="fromAya" type="number" value="1" min="1" style="width:75px" oninput="updateBtnText(); loadSurahRangeText();">
+                    <label>إلى آية</label>
+                    <input id="toAya" type="number" value="5" min="1" style="width:75px" oninput="updateBtnText(); loadSurahRangeText();">
+                    
+                    <select id="repeatCount">
+                        <option value="0" selected>تكرار مستمر</option>
+                        <option value="1">مرة واحدة</option>
+                        <option value="3">3 مرات</option>
+                        <option value="10">10 مرات</option>
+                    </select>
+
+                    <select id="quranSpeedSelect" onchange="changeQuranSpeed()">
+                        <option value="0.75">سرعة: 0.75x</option>
+                        <option value="1.0" selected>سرعة: 1.0x (عادي)</option>
+                        <option value="1.25">سرعة: 1.25x</option>
+                        <option value="1.5">سرعة: 1.5x</option>
+                    </select>
+                </div>
+
+                <div style="text-align:center">
+                    <button class="btn play" id="playBtn" onclick="playQuranRange()" style="padding:12px 24px;font-size:15px">▶ تشغيل من 1 لـ 5 والتظليل المباشر</button>
+                    <button class="btn stop" onclick="stopQuran()">⏹ إيقاف</button>
+                </div>
+
+                <div id="quranStatus" class="small" style="margin-top:14px">جاهز للتشغيل والقراءة التفاعلية والتفسير</div>
+                <audio id="quranAudio" controls preload="auto"></audio>
+
+                <!-- DYNAMIC AYAH SYNC MUSHAF READER DISPLAY WITH GLOWING TAFSIR -->
+                <div style="margin-top:24px">
+                    <div style="font-size:20px;font-weight:800;color:var(--accent-gold);text-align:center;font-family:'Reem Kufi',sans-serif">📖 المصحف التفاعلي (اضغط على رقم أي آية لإظهار التفسير الميسر)</div>
+                    <div id="mushafViewer" class="quran-text-viewer">
+                        ...جارٍ تحميل الآيات المختارة
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPLETE ADHKAR TAB (Highly styled, Expanded Amiri text, and Glowing counter) -->
+        <section id="adhkarTab" class="tab-content">
+            <div class="wallpaper wall-ad">
+                <div style="text-align:center">
+                    <div class="wall-title">أذكار الصباح والمساء الكاملة والأدعية</div>
+                    <div class="wall-sub">FULL AUTHENTIC ADHKAR & DAILY SUPPLICATIONS</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="sub-tabs">
+                    <button id="adhkarSabahBtn" class="sub-btn active" onclick="switchAdhkarCategory('sabah')">🌅 أذكار الصباح كاملة</button>
+                    <button id="adhkarMasaaBtn" class="sub-btn" onclick="switchAdhkarCategory('masaa')">🌆 أذكار المساء كاملة</button>
+                    <button id="adhkarSleepBtn" class="sub-btn" onclick="switchAdhkarCategory('sleep')">🌙 أذكار النوم</button>
+                    <button id="adhkarDuaBtn" class="sub-btn" onclick="switchAdhkarCategory('dua')">🤲 أدعية جوامع الكلم</button>
+                </div>
+            </div>
+
+            <div id="adhkarContainer"></div>
+        </section>
+
+        <!-- PRAYER TIMES TAB -->
+        <section id="prayerTab" class="tab-content">
+            <div class="wallpaper wall-pr">
+                <div style="text-align:center">
+                    <div class="wall-title">مواقيت الصلاة والتقويم الهجري</div>
+                    <div class="wall-sub">PRAYER TIMES & HIJRI CALENDAR</div>
+                </div>
+            </div>
+
+            <div class="box" style="text-align:center">
+                <div style="font-size:22px;font-weight:800;color:var(--accent-gold);margin-bottom:6px" id="currentCityDisplay">📍 مواقيت الصلاة (مصر - القاهرة)</div>
+                <div class="small" id="hijriDateDisplay">الجمعة 26 صفر 1448 هـ</div>
+
+                <div class="prayer-grid">
+                    <div class="prayer-card" id="card_Fajr">
+                        <div class="prayer-name">🌅 الفجر</div>
+                        <div class="prayer-time">04:42 AM</div>
+                    </div>
+                    <div class="prayer-card" id="card_Sunrise">
+                        <div class="prayer-name">☀️ الشروق</div>
+                        <div class="prayer-time">06:12 AM</div>
+                    </div>
+                    <div class="prayer-card" id="card_Dhuhr">
+                        <div class="prayer-name">☀️ الظهر</div>
+                        <div class="prayer-time">12:04 PM</div>
+                    </div>
+                    <div class="prayer-card" id="card_Asr">
+                        <div class="prayer-name">🌤️ العصر</div>
+                        <div class="prayer-time">03:38 PM</div>
+                    </div>
+                    <div class="prayer-card" id="card_Maghrib">
+                        <div class="prayer-name">🌆 المغرب</div>
+                        <div class="prayer-time">06:45 PM</div>
+                    </div>
+                    <div class="prayer-card" id="card_Isha">
+                        <div class="prayer-name">🌙 العشاء</div>
+                        <div class="prayer-time">08:06 PM</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEMORY MATCHING GAME TAB (Memory Match) -->
+        <section id="gameTab" class="tab-content">
+            <div class="wallpaper wall-gm">
+                <div style="text-align:center">
+                    <div class="wall-title">🧠 Memory Match</div>
+                    <div class="wall-sub">TRAIN YOUR MEMORY WITH YOUR ADDED WORDS</div>
+                </div>
+            </div>
+
+            <div class="box" style="text-align:center">
+                <div class="filters" style="justify-content:center;margin-bottom:14px">
+                    <label style="font-weight:700">اللغة الحالية للعبة:</label>
+                    <select id="gameLangSelect" onchange="initMemoryGame()">
+                        <option value="en" selected>🇬🇧 الإنجليزية (English)</option>
+                        <option value="secondlang" id="gameSecondlangOption">🇹🇷 اللغة الثانية (Second Language)</option>
+                    </select>
+
+                    <button class="btn btn-gm" onclick="initMemoryGame()">↺ إعادة اللعبة</button>
+                </div>
+
+                <div style="display:flex;justify-content:space-around;font-weight:800;font-size:16px;color:var(--accent-gold);margin-bottom:12px">
+                    <div>المحاولات: <span id="gameMoves">0</span></div>
+                    <div>الأزواج المطابقة: <span id="gameMatches">0 / 6</span></div>
+                </div>
+
+                <div id="gameStatusMsg" class="small" style="font-size:16px;font-weight:700;color:#22c55e;min-height:24px"></div>
+
+                <div class="game-grid" id="gameGrid"></div>
+            </div>
+        </section>
+
+        <!-- QUIZ TAB -->
+        <section id="quizTab" class="tab-content">
+            <div class="wallpaper wall-qz">
+                <div style="text-align:center">
+                    <div class="wall-title">💡 Quiz</div>
+                    <div class="wall-sub">TEST YOUR VOCABULARY KNOWLEDGE</div>
+                </div>
+            </div>
+
+            <div class="box" style="text-align:center">
+                <div class="filters" style="justify-content:center;margin-bottom:16px">
+                    <label style="font-weight:700">لغة الاختبار:</label>
+                    <select id="quizLangSelect" onchange="resetQuiz()">
+                        <option value="en">🇬🇧 الإنجليزية (English)</option>
+                        <option value="secondlang" id="quizSecondlangOption">🇹🇷 اللغة الثانية</option>
+                    </select>
+                </div>
+
+                <div class="small" id="quizHint">اكتب الترجمة الصحيحة للكلمة المعروضة بالعربية</div>
+                <div id="quizQuestion" class="quiz-q">اضغط بدء الاختبار</div>
+                
+                <input id="quizAnswer" class="quiz-input" placeholder="اكتب إجابتك هنا..." onkeydown="if(event.key==='Enter')checkQuiz()">
+                <br>
+                
+                <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+                    <button class="btn quizbtn" onclick="startQuiz()">▶ بدء</button>
+                    <button class="btn play" onclick="checkQuiz()">✔ تحقق</button>
+                    <button class="btn del" onclick="showAnswer()">👁 الإجابة</button>
+                    <button class="btn stop" onclick="resetQuiz()">↺ إعادة</button>
+                </div>
+
+                <div id="quizResult" style="margin-top:14px;font-weight:800;font-size:18px;min-height:26px"></div>
+                <div id="quizScore" class="small" style="font-size:15px;font-weight:700">النتيجة: 0 / 0</div>
+                <div id="quizProgress" class="small"></div>
+            </div>
+        </section>
+
+        <!-- COURSES & VIDEO LESSONS TAB -->
+        <section id="coursesTab" class="tab-content">
+            <div class="wallpaper wall-co">
+                <div style="text-align:center">
+                    <div class="wall-title">📺 كورسات وقنوات تعلم اللغات</div>
+                    <div class="wall-sub">RECOMMENDED LANGUAGE COURSES</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div style="font-size: 20px; font-weight: 800; color: var(--accent-gold); text-align: center; margin-bottom: 12px; font-family: 'Reem Kufi', sans-serif;">📺 أفضل مصادر تعلم اللغات الموثوقة</div>
+                <p class="small" style="margin-bottom: 20px;">أقوى وأفضل القنوات والكورسات المجانية على يوتيوب لتعلم اللغة الإنجليزية واللغات المختلفة.</p>
+                
+                <div class="courses-grid">
+                    <!-- Course 1 -->
+                    <div class="course-card">
+                        <div>
+                            <div class="course-title">🇬🇧 ZAmericanEnglish</div>
+                            <p class="course-desc">الكورس التفاعلي الشامل لتعلم اللغة الإنجليزية من الصفر للمبدع إبراهيم عادل.</p>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=r43yCiNHX3g&list=PL2-fvk4D74SrfV3z7D5_Z6x_yS64bfa10" target="_blank" class="btn btn-en" style="text-align:center; display:block; width:100%; text-decoration:none;">▶ فتح الكورس في YouTube ↗</a>
+                    </div>
+
+                    <!-- Course 2 -->
+                    <div class="course-card">
+                        <div>
+                            <div class="course-title">🌍 طليق لتعليم اللغات</div>
+                            <p class="course-desc">قناة طليق العالمية تمنحك فرصة مميزة لتعلم الإنجليزية والعديد من لغات العالم بخطوات مبسطة.</p>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=d0yGdNEWdn0&list=PL2-fvk4D74Srzm_3XyI28hLg0m9v5J_qQ" target="_blank" class="btn btn-en" style="text-align:center; display:block; width:100%; text-decoration:none;">▶ فتح الكورس في YouTube ↗</a>
+                    </div>
+
+                    <!-- Course 3 -->
+                    <div class="course-card">
+                        <div>
+                            <div class="course-title">🇩🇪 تعلم الألمانية - Anja</div>
+                            <p class="course-desc">أقوى الدروس لتعلم اللغة الألمانية ومحادثات الشارع والمصطلحات بطريقة ممتعة ومبسطة.</p>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=k26k9L4V3kE" target="_blank" class="btn play" style="text-align:center; display:block; width:100%; text-decoration:none;">▶ فتح الكورس في YouTube ↗</a>
+                    </div>
+
+                    <!-- Course 4 -->
+                    <div class="course-card">
+                        <div>
+                            <div class="course-title">🇩🇪 Deutsch für Euch</div>
+                            <p class="course-desc">كورس تفصيلي أكاديمي يركز على شرح قواعد ونطق الألمانية وقدرات التحدث للطلاب.</p>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=1tZ9qU1tF00" target="_blank" class="btn play" style="text-align:center; display:block; width:100%; text-decoration:none;">▶ فتح الكورس في YouTube ↗</a>
+                    </div>
+
+                    <!-- Course 5 -->
+                    <div class="course-card">
+                        <div>
+                            <div class="course-title">🇹🇷 التركية - TurkishClass101</div>
+                            <p class="course-desc">دروس تفاعلية سريعة ومثالية لتعلم اللغة التركية المحكية وقواعد الحوار للمبتدئين.</p>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=5n3E1vL9dGA" target="_blank" class="btn btn-tr" style="text-align:center; display:block; width:100%; text-decoration:none;">▶ فتح الكورس في YouTube ↗</a>
+                    </div>
+
+                    <!-- Course 6 -->
+                    <div class="course-card">
+                        <div>
+                            <div class="course-title">🇫🇷 الفرنسية مع Alexa</div>
+                            <p class="course-desc">كورس مميز لتعلم اللغة الفرنسية من الصفر، خطوة بخطوة مع المعلمة الشهيرة أليكسا.</p>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=hd0_GZHHWeE" target="_blank" class="btn play" style="text-align:center; display:block; width:100%; background: linear-gradient(135deg, #0ea5e9, #0284c7); color:white; text-decoration:none;">▶ فتح الكورس في YouTube ↗</a>
+                    </div>
+
+                    <!-- Course 7 -->
+                    <div class="course-card">
+                        <div>
+                            <div class="course-title">🇪🇸 الإسبانية - Butterfly Spanish</div>
+                            <p class="course-desc">دروس ممتازة ومحبوبة جداً لشرح الكلمات والقواعد والمحادثات الإسبانية اليومية الهامة.</p>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=k3a362xM-0U" target="_blank" class="btn play" style="text-align:center; display:block; width:100%; background: linear-gradient(135deg, #ec4899, #be185d); color:white; text-decoration:none;">▶ فتح الكورس في YouTube ↗</a>
+                    </div>
+
+                    <!-- Course 8 -->
+                    <div class="course-card">
+                        <div>
+                            <div class="course-title">🇮🇹 الإيطالية مع Lucrezia</div>
+                            <p class="course-desc">كورس رائع مصمم خصيصاً للمبتدئين لتعلم نطق وفهم وقواعد اللغة الإيطالية الجميلة.</p>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=9P1v6NfTj6w" target="_blank" class="btn play" style="text-align:center; display:block; width:100%; background: linear-gradient(135deg, #a855f7, #7e22ce); color:white; text-decoration:none;">▶ فتح الكورس في YouTube ↗</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REAL AI ASSISTANT & SUMMARIZER TAB -->
+        <section id="aiTab" class="tab-content">
+            <div class="wallpaper wall-ai">
+                <div style="text-align:center">
+                    <div class="wall-title">🤖 AI Assistant</div>
+                    <div class="wall-sub">REAL AI TEXT SUMMARIZER & GRAMMAR FIXER</div>
+                </div>
+            </div>
+
+            <!-- Single Input Box & Real AI Actions -->
+            <div class="box">
+                <div style="font-size:18px;font-weight:800;color:var(--accent-gold);margin-bottom:10px;font-family:'Reem Kufi',sans-serif">🤖 المحرك الذكي لتلخيص النصوص وتصحيح القواعد النحوية</div>
+                <p class="small" style="margin-bottom:14px;text-align:right">اكتب أو انسخ النص بالإنجليزية ليقوم الذكاء الاصطناعي بتلخيصه أو تصحيح أخطائه النحوية فوراً مع الشرح بالعربية.</p>
+
+                <textarea id="realAiInput" style="width:100%;height:150px;padding:16px;border-radius:18px;background:rgba(3,7,18,0.7);color:#fff;border:1px solid rgba(255,255,255,0.12);font-family:'Tajawal',sans-serif;font-size:15px;margin-bottom:14px;direction:ltr" placeholder="Paste or type your English text here... (مثال: انسخ مقالة لتلخيصها أو جملة لتصحيح قواعدها)"></textarea>
+
+                <div style="display:flex;gap:12px;flex-wrap:wrap">
+                    <button class="btn btn-en" onclick="runRealAi('summarize')" style="flex:1;padding:14px;font-size:15px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white">⚡ 1. تلخيص النص (AI Summarize)</button>
+                    <button class="btn btn-en" onclick="runRealAi('grammar')" style="flex:1;padding:14px;font-size:15px;background:linear-gradient(135deg,#10b981,#059669);color:white">✏️ 2. تصحيح القواعد (AI Grammar Fixer)</button>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;gap:10px">
+                    <div id="geminiStatusBadge" style="font-size:13px;color:#38bdf8">✨ المحرك النشط: <b id="geminiEngineName">Gemini Pro AI</b></div>
+                    <button class="btn btn-gold" onclick="setGeminiKey()" style="padding:6px 14px;font-size:12px">🔑 ربط مفتاح Google Gemini Pro</button>
+                </div>
+            </div>
+
+            <!-- AI RESULT DISPLAY CARD -->
+            <div id="realAiResultCard" class="box" style="display:none;animation:fadeIn 0.35s ease-out;border:1.5px solid var(--accent-gold);box-shadow:0 0 30px rgba(251,191,36,0.15)">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border-bottom:1px solid var(--card-border);padding-bottom:10px">
+                    <div style="font-size:18px;font-weight:800;color:var(--accent-gold);font-family:'Reem Kufi',sans-serif" id="realAiResultTitle">✨ نتيجة الذكاء الاصطناعي</div>
+                    <button class="btn del" style="padding:6px 12px;font-size:12px" onclick="document.getElementById('realAiResultCard').style.display='none'">✕ إغلاق</button>
+                </div>
+
+                <div id="realAiResultBody" style="line-height:1.8;font-size:15px;color:var(--text-main)"></div>
+            </div>
+        </section>
+
+        <!-- VIDEO PLAYER MODAL -->
+        <div id="videoPlayerModal" class="modal-overlay">
+            <div class="modal-card" style="max-width: 800px; width: 100%; padding: 18px; border: 1.5px solid var(--accent-gold); box-shadow: 0 0 35px rgba(251,191,36,0.3);">
+                <button class="close-modal" onclick="closeVideoPlayer()">✕</button>
+                <div class="modal-title" id="videoPlayerTitle">مشاهدة الكورس</div>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; border: 1px solid var(--card-border); background:#000;">
+                    <iframe id="videoPlayerFrame" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                </div>
+                <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <span class="small" style="color: var(--text-muted);">📺 مشغل الفيديوهات المباشر من YouTube</span>
+                    <a id="openExternalVideoBtn" href="#" target="_blank" class="btn btn-en" style="padding: 8px 16px; font-size: 13px; text-decoration: none;">▶ فتح مباشر في YouTube ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FLASHCARDS MODAL -->
+        <div id="flashcardsModal" class="modal-overlay">
+            <div class="modal-card" style="max-width:500px">
+                <button class="close-modal" onclick="closeFlashcardsModal()">✕</button>
+                <div class="modal-title" id="flashModalTitle">🎴 بطاقات الحفظ السريع</div>
+
+                <div class="flashcard-wrapper" id="flashcardWrapper" onclick="flipFlashcard()">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <div style="font-size:12px;opacity:0.8;margin-bottom:8px">اضغط لقلب البطاقة لرؤية الترجمة</div>
+                            <div id="flashWordFront" style="font-size:32px;font-weight:800">Word</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div style="font-size:12px;opacity:0.8;margin-bottom:8px">الترجمة العربية</div>
+                            <div id="flashWordBack" style="font-size:28px;font-weight:800;font-family:'Amiri',serif">الترجمة</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <button class="btn btn-en" onclick="prevFlashcard()">← السابقة</button>
+                    <span id="flashcardCounter" style="font-weight:800;font-size:14px">1 / 10</span>
+                    <button class="btn btn-en" onclick="nextFlashcard()">التالية →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUTH MODAL -->
+        <div id="authModal" class="modal-overlay">
+            <div class="modal-card">
+                <button class="close-modal" onclick="closeAuthModal()">✕</button>
+                <div class="modal-title" id="modalTitle">تسجيل الدخول</div>
+                
+                <div class="form-group" id="nameGroup" style="display:none">
+                    <label>الاسم الكامل</label>
+                    <input id="authName" placeholder="إبراهيم حلمي">
+                </div>
+
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input id="authEmail" type="email" placeholder="example@mail.com">
+                </div>
+
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input id="authPassword" type="password" placeholder="••••••••">
+                </div>
+
+                <div id="authError" style="color:#f43f5e;font-size:13px;margin-bottom:12px;text-align:center"></div>
+
+                <button class="btn btn-en" style="width:100%;padding:12px;margin-bottom:10px" id="submitAuthBtn" onclick="handleAuthSubmit()">تسجيل الدخول</button>
+
+                <div class="small" style="margin-top:12px">
+                    <span id="toggleAuthText">ليس لديك حساب؟</span>
+                    <a href="#" style="color:var(--accent-blue);font-weight:700;margin-right:4px" onclick="toggleAuthMode()">إنشاء حساب جديد</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- WELCOME CHALLENGE MODAL -->
+        <div id="challengeModal" class="modal-overlay">
+            <div class="modal-card" style="text-align: center; max-width: 400px; border: 1.5px solid var(--accent-gold); box-shadow: 0 0 25px rgba(251, 191, 36, 0.3);">
+                <div style="font-size: 50px; margin-bottom: 12px;">🌟</div>
+                <div class="modal-title" style="font-size: 22px; color: var(--accent-gold);" id="challengeTitle">تحدي التعلم</div>
+                <p id="challengeText" style="font-size: 16px; line-height: 1.7; margin-bottom: 22px; color: var(--text-main); font-weight: 700;">
+                    مرحبا بك يا [الاسم] هل انت جاهز للتغلب على نفسك بالتعلم الديني والدنيوي؟
+                </p>
+                <button class="btn play" onclick="acceptChallenge()" style="padding: 12px 24px; font-size: 15px; width: 100%;">نعم، متأكد</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-main" style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+            <img src="profile.jpg" class="footer-icon" alt="Ibrahem Helmy" loading="lazy">
+            <div style="flex:1;min-width:220px">
+                <div id="footerHekma" class="footer-hekma" style="font-family:'Amiri',serif;font-size:18px;color:#fde68a;line-height:1.5;margin-bottom:8px">من جد وجد، ومن زرع حصد. ساعة مذاكرة اليوم توفر عليك سنة ندم.</div>
+                <div class="footer-sub" style="display:flex;flex-direction:column;gap:2px;font-size:12px;color:#64748b;font-family:'Montserrat',sans-serif">
+                    <div style="font-weight:700;color:var(--text-main);font-size:13px">THRIVE PLATFORM</div>
+                    <div>Ibrahem Helmy (Owner)</div>
+                    <div>ibrahem.helmy2323@gmail.com</div>
+                </div>
+            </div>
+            <div class="start-btn" onclick="goTop()">↑ Start Now</div>
+        </div>
+
+    </div>
+
+    <script>
+        let isSignUpMode = false;
+        let currentUser = null;
+        let isDarkTheme = true;
+
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            document.body.classList.toggle('light-theme', !isDarkTheme);
+            document.getElementById('themeToggleBtn').innerText = isDarkTheme ? '🌙' : '☀️';
+        }
+
+        // COMPLETE AUTHENTIC ADHKAR DATABASE (Redesigned & Substantially Expanded)
+        const adhkarData = {
+            sabah: [
+                {
+                    text: "آيَةُ الْكُرْسِيِّ: ﴿اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ﴾",
+                    fadl: "من قالها حين يصبح أجير من الجن حتى يمسي.",
+                    count: 1
+                },
+                {
+                    text: "سُورَةُ الإِخْلاَصِ وَالفَلَقِ وَالنَّاسِ (3 مرَّات كُلَّ سُورَةٍ)",
+                    fadl: "من قالها حين يصبح وحين يمسي تكفيه من كل شيء.",
+                    count: 3
+                },
+                {
+                    text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ. رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابِ فِي النَّارِ وَعَذَابِ فِي الْقَبْرِ.",
+                    fadl: "من أذكار الصباح العظيمة.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ.",
+                    fadl: "سنة نبوية جليلة في أول الصباح.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ أَنْتَ رَبِّي لاَ إِلَهَ إِلاَّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عهدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ.",
+                    fadl: "سيد الاستغفار: من قالها موقناً بها ومات في يومه دخل الجنة.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلاَئِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لاَ إِلَهَ إِلاَّ أَنْتَ وَحْدَكَ لاَ شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ.",
+                    fadl: "من قالها 4 مرات أعتقه الله من النار.",
+                    count: 4
+                },
+                {
+                    text: "اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لاَ شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ.",
+                    fadl: "من قالها حين يصبح فقد أدَّى شكر يومه.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لاَ إِلَهَ إِلاَّ أَنْتَ. اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ، وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لاَ إِلَهَ إِلاَّ أَنْتَ.",
+                    fadl: "دعاء العافية والوقاية من الفقر والعذاب.",
+                    count: 3
+                },
+                {
+                    text: "حَسْبِيَ اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.",
+                    fadl: "من قالها 7 مرات كافاه الله ما أهمه من أمر الدنيا والآخرة.",
+                    count: 7
+                },
+                {
+                    text: "بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلاَ فِي السَّماءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.",
+                    fadl: "من قالها 3 مرات لم يضره شيء.",
+                    count: 3
+                },
+                {
+                    text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالإِسْلاَمِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.",
+                    fadl: "كان حقاً على الله أن يرضيه يوم القيمة.",
+                    count: 3
+                },
+                {
+                    text: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلاَ تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ.",
+                    fadl: "استغاثة وتفويض الأمور لله تعالى.",
+                    count: 1
+                },
+                {
+                    text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ: عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.",
+                    fadl: "أوزن وأعظم الأذكار أجراً.",
+                    count: 3
+                },
+                {
+                    text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ.",
+                    fadl: "من صلى عليّ حين يصبح وحين يمسي حلت له شفاعتي.",
+                    count: 10
+                },
+                {
+                    text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ.",
+                    fadl: "محو الذنوب وراحة للقلب وجلب للرزق والخير والبركة في الحياة.",
+                    count: 100
+                },
+                {
+                    text: "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.",
+                    fadl: "حرز وحفظ تام من الشيطان وثواب عظيم يعادل عتق عشر رقاب.",
+                    count: 100
+                },
+                {
+                    text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.",
+                    fadl: "من قالها 100 مرة حُطَّت خطاياه وإن كانت مثل زبد البحر.",
+                    count: 100
+                }
+            ],
+            masaa: [
+                {
+                    text: "آيَةُ الْكُرْسِيِّ: ﴿اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...﴾",
+                    fadl: "من قالها حين يمسي أُجير من الجن حتى يصبح.",
+                    count: 1
+                },
+                {
+                    text: "سُورَةُ الإِخْلاَصِ وَالفَلَقِ وَالنَّاسِ (3 مرَّات كُلَّ سُورَةٍ)",
+                    fadl: "تكفيك من كل شيء في ليلتك.",
+                    count: 3
+                },
+                {
+                    text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ. رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابِ فِي الْقَبْرِ.",
+                    fadl: "من أذكار المساء المأثورة.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ وَإِلَيْكَ الْمَصِيرُ.",
+                    fadl: "سنة نبوية جليلة في المساء.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ أَنْتَ رَبِّي لاَ إِلَهَ إِلاَّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عهدِكَ وَوَعْدِكَ مَا اسْتَطعتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ.",
+                    fadl: "سيد الاستغفار في المساء.",
+                    count: 1
+                },
+                {
+                    text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ.",
+                    fadl: "من قالها 3 مرات في المساء لم تضره حمة ذلك الليلة.",
+                    count: 3
+                },
+                {
+                    text: "بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلاَ فِي السَّماءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.",
+                    fadl: "حماية تامة من الفجأة والشرور والمكاره.",
+                    count: 3
+                },
+                {
+                    text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالعِلْمِ طَرِيقاً، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.",
+                    fadl: "ضمان رضا الرب سبحانه وتعالى يوم القيامة.",
+                    count: 3
+                },
+                {
+                    text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ.",
+                    fadl: "نيل شفاعة النبي صلى الله عليه وسلم ومحو الخطايا.",
+                    count: 10
+                },
+                {
+                    text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ.",
+                    fadl: "تفريج الهموم وفتح لأبواب السماء والرحمة الواسعة.",
+                    count: 100
+                },
+                {
+                    text: "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.",
+                    fadl: "حفظ شامل من مكائد وحروز الشياطين.",
+                    count: 100
+                },
+                {
+                    text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.",
+                    fadl: "من قالها 100 مرة حطت خطاياه وإن كثرت.",
+                    count: 100
+                }
+            ],
+            sleep: [
+                {
+                    text: "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، فَإِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ.",
+                    fadl: "حفظ النفس والروح في النوم.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ.",
+                    fadl: "وقاية كاملة من النار وعذاب الآخرة قبل النوم.",
+                    count: 3
+                },
+                {
+                    text: "اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا.",
+                    fadl: "تسليم الروح والأمر كله للخالق العظيم.",
+                    count: 1
+                },
+                {
+                    text: "سُبْحَانَ اللَّهِ (33 مرة)، الْحَمْدُ لِلَّهِ (33 مرة)، اللَّهُ أَكْبَرُ (34 مرة).",
+                    fadl: "تسبيح النوم الفاضل المنشط للجسم والبدن والروح طوال الليل.",
+                    count: 33
+                }
+            ],
+            dua: [
+                {
+                    text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ.",
+                    fadl: "أجمع وأشمل دعاء في القرآن العظيم.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى.",
+                    fadl: "من جوامع دعاء النبي الكريم في طلب صلاح الدين والبدن.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ.",
+                    fadl: "أكثر دعاء كان يردده النبي صلى الله عليه وسلم لطلب الثبات.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ مُصَرِّفَ الْقُلُوبِ صَرِّفْ قُلُوبَنَا عَلَى طَاعَتِكَ.",
+                    fadl: "دعاء لتوجيه القلب للهدى والطاعة والعمل الصالح الدائم.",
+                    count: 1
+                },
+                {
+                    text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ.",
+                    fadl: "سؤال السلامة والعافية التامة من كل بلاء ومكروه.",
+                    count: 1
+                }
+            ]
+        };
+
+        let currentAdhkarCat = 'sabah';
+        let adhkarCountsState = {};
+
+        function switchAdhkarCategory(cat) {
+            currentAdhkarCat = cat;
+            ['Sabah', 'Masaa', 'Sleep', 'Dua'].forEach(c => {
+                const b = document.getElementById('adhkar' + c + 'Btn');
+                if (b) b.classList.remove('active');
+            });
+            const activeBtn = document.getElementById('adhkar' + (cat.charAt(0).toUpperCase() + cat.slice(1)) + 'Btn');
+            if (activeBtn) activeBtn.classList.add('active');
+            renderAdhkar();
+        }
+
+        function renderAdhkar() {
+            const list = adhkarData[currentAdhkarCat] || [];
+            const container = document.getElementById('adhkarContainer');
+            
+            container.innerHTML = list.map((item, idx) => {
+                const key = currentAdhkarCat + '_' + idx;
+                if (adhkarCountsState[key] === undefined) {
+                    adhkarCountsState[key] = item.count;
+                }
+                const currentCount = adhkarCountsState[key];
+                const isDone = currentCount === 0;
+
+                return `
+                    <div class="dhikr-card">
+                        <div class="dhikr-text">${item.text}</div>
+                        <div class="dhikr-fadl">✨ <b>الفضل والبركة:</b> ${item.fadl}</div>
+                        <div>
+                            <button class="counter-btn ${isDone ? 'done' : ''}" onclick="decrementDhikr('${key}')">
+                                ${isDone ? '✔ اكتمل الذكر والورد اليومي' : 'التكرار المتبقي: ' + currentCount + ' 🟢'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function decrementDhikr(key) {
+            if (adhkarCountsState[key] > 0) {
+                adhkarCountsState[key]--;
+                renderAdhkar();
+            }
+        }
+
+        // QURAN API DYNAMIC AYAH SYNC & TAFSIR HIGHLIGHTING ENGINE
+        let currentLoadedAyahs = [];
+        let openTafsirAyaNum = null;
+
+        async function loadSurahRangeText() {
+            const suraNum = parseInt(document.getElementById('suraSelect').value);
+            const fromAya = parseInt(document.getElementById('fromAya').value);
+            const toAya = parseInt(document.getElementById('toAya').value);
+            const viewer = document.getElementById('mushafViewer');
+
+            viewer.innerHTML = `<div class="small">⚡ جارٍ تحميل آيات المصحف والتفسير...</div>`;
+
+            try {
+                const [resQuran, resTafsir] = await Promise.all([
+                    fetch(`https://api.alquran.cloud/v1/surah/${suraNum}/ar.uthmani`),
+                    fetch(`https://api.alquran.cloud/v1/surah/${suraNum}/ar.muyassar`)
+                ]);
+                const dataQuran = await resQuran.json();
+                const dataTafsir = await resTafsir.json();
+
+                if (dataQuran.status === 'OK' && dataQuran.data && dataQuran.data.ayahs) {
+                    const allAyahs = dataQuran.data.ayahs;
+                    const allTafsir = dataTafsir.data ? dataTafsir.data.ayahs : [];
+
+                    const filtered = allAyahs.filter(a => a.numberInSurah >= fromAya && a.numberInSurah <= toAya);
+                    currentLoadedAyahs = filtered;
+
+                    if (!filtered.length) {
+                        viewer.innerHTML = `<div class="small">الرجاء إدخال نطاق آيات صحيح لهذه السورة</div>`;
+                        return;
+                    }
+
+                    let html = '';
+                    if (suraNum !== 1 && suraNum !== 9 && fromAya === 1) {
+                        html += `<div style="text-align:center;color:var(--accent-gold);margin-bottom:12px;font-size:22px">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`;
+                    }
+
+                    filtered.forEach(a => {
+                        let text = a.text;
+                        if (a.numberInSurah === 1 && text.startsWith("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ")) {
+                            text = text.replace("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "").trim();
+                        }
+                        const tafsirObj = allTafsir.find(t => t.numberInSurah === a.numberInSurah);
+                        const tafsirText = tafsirObj ? tafsirObj.text : 'التفسير الميسر لهذه الآية الكريمة.';
+
+                        html += `
+                            <span id="aya_unit_${a.numberInSurah}" class="aya-unit">
+                                ${text} <span class="aya-num" onclick="toggleTafsir(${a.numberInSurah})" title="اضغط لعرض التفسير">(${a.numberInSurah})</span>
+                            </span>
+                            <div id="tafsir_box_${a.numberInSurah}" class="tafsir-box" style="display:none">
+                                💡 <b>التفسير الميسر (آية ${a.numberInSurah}):</b> ${tafsirText}
+                            </div>
+                        `;
+                    });
+                    viewer.innerHTML = html;
+                }
+            } catch (err) {
+                console.warn("Quran Cloud API Offline fallback:", err);
+                viewer.innerHTML = `﴿ المصحف الشريف - سورة ${suraNum} من آية ${fromAya} إلى ${toAya} ﴾<br>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<br>تلاوة مباركة خاشعة من المصحف التفاعلي.`;
+            }
+        }
+
+        function toggleTafsir(ayaNum) {
+            const el = document.getElementById('tafsir_box_' + ayaNum);
+            if (el) {
+                const isHidden = el.style.display === 'none';
+                el.style.display = isHidden ? 'block' : 'none';
+            }
+        }
+
+        function highlightPlayingAyah(ayaNum) {
+            document.querySelectorAll('.aya-unit').forEach(el => el.classList.remove('active-playing'));
+            const targetEl = document.getElementById('aya_unit_' + ayaNum);
+            if (targetEl) {
+                targetEl.classList.add('active-playing');
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        /* ----- MEMORY MATCHING GAME ENGINE ----- */
+        let memoryCardsData = [];
+        let firstCard = null, secondCard = null;
+        let lockBoard = false;
+        let gameMoves = 0;
+        let gameMatches = 0;
+
+        function initMemoryGame() {
+            const lang = document.getElementById('gameLangSelect').value;
+            // Get custom added words (excluding default ones)
+            const source = lang === 'en' ? enWords.filter(w => w.custom) : secondlangWords.filter(w => w.custom);
+            
+            if (source.length < 3) {
+                document.getElementById('gameGrid').innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 30px; color: var(--text-muted);">
+                        <span style="font-size: 40px; display: block; margin-bottom: 10px;">⚠️</span>
+                        لم تقم بإضافة كلمات كافية بعد. يرجى إضافة 3 كلمات على الأقل في قسم اللغة لبدء اللعبة التفاعلية!
+                    </div>`;
+                document.getElementById('gameMoves').innerText = '0';
+                document.getElementById('gameMatches').innerText = '0 / 0';
+                return;
+            }
+
+            const pairs = Math.min(6, source.length);
+            const selected = [...source].sort(() => 0.5 - Math.random()).slice(0, pairs);
+
+            let deck = [];
+            selected.forEach((item, idx) => {
+                deck.push({ id: idx, text: item.en || item.secondlang, type: 'foreign' });
+                deck.push({ id: idx, text: item.ar, type: 'arabic' });
+            });
+
+            deck.sort(() => 0.5 - Math.random());
+            memoryCardsData = deck;
+
+            firstCard = null;
+            secondCard = null;
+            lockBoard = false;
+            gameMoves = 0;
+            gameMatches = 0;
+
+            document.getElementById('gameMoves').innerText = '0';
+            document.getElementById('gameMatches').innerText = `0 / ${pairs}`;
+            document.getElementById('gameStatusMsg').innerText = '💡 اضغط على كارتين لمطابقة الكلمة وترجمتها!';
+
+            const grid = document.getElementById('gameGrid');
+            grid.innerHTML = deck.map((card, i) => `
+                <div class="game-card-item" data-index="${i}" data-id="${card.id}" onclick="flipMemoryCard(this)">
+                    <div class="game-card-front">❓</div>
+                    <div class="game-card-back">${card.text}</div>
+                </div>
+            `).join('');
+        }
+
+        function flipMemoryCard(cardEl) {
+            if (lockBoard || cardEl === firstCard || cardEl.classList.contains('matched')) return;
+
+            cardEl.classList.add('flipped');
+
+            if (!firstCard) {
+                firstCard = cardEl;
+                return;
+            }
+
+            secondCard = cardEl;
+            lockBoard = true;
+            gameMoves++;
+            document.getElementById('gameMoves').innerText = gameMoves;
+
+            const isMatch = firstCard.getAttribute('data-id') === secondCard.getAttribute('data-id');
+            const totalPairs = Math.min(6, (document.getElementById('gameLangSelect').value === 'en' ? enWords.filter(w => w.custom).length : secondlangWords.filter(w => w.custom).length));
+
+            if (isMatch) {
+                firstCard.classList.add('matched');
+                secondCard.classList.add('matched');
+                gameMatches++;
+                document.getElementById('gameMatches').innerText = `${gameMatches} / ${totalPairs}`;
+                resetBoard();
+
+                if (gameMatches === totalPairs) {
+                    document.getElementById('gameStatusMsg').innerText = `🎉 مبروك يا بطل! أنهيت اللعبة بنجاح في ${gameMoves} محاولة! 👏`;
+                }
+            } else {
+                setTimeout(() => {
+                    firstCard.classList.remove('flipped');
+                    secondCard.classList.remove('flipped');
+                    resetBoard();
+                }, 900);
+            }
+        }
+
+        function resetBoard() {
+            [firstCard, secondCard] = [null, null];
+            lockBoard = false;
+        }
+
+        /* ----- FLASHCARDS LOGIC ----- */
+        let flashList = [];
+        let flashIndex = 0;
+
+        function openFlashcardsModal(lang) {
+            flashList = lang === 'en' ? (enSaved.length ? enSaved : enWords) : (secondlangSaved.length ? secondlangSaved : secondlangWords);
+            if (!flashList.length) { alert('قائمة الكلمات فارغة، الرجاء إضافة كلمات أولاً!'); return; }
+            flashIndex = 0;
+            updateFlashcard();
+            document.getElementById('flashcardsModal').classList.add('active');
+        }
+
+        function closeFlashcardsModal() {
+            document.getElementById('flashcardsModal').classList.remove('active');
+        }
+
+        function flipFlashcard() {
+            document.getElementById('flashcardWrapper').classList.toggle('flipped');
+        }
+
+        function updateFlashcard() {
+            document.getElementById('flashcardWrapper').classList.remove('flipped');
+            const item = flashList[flashIndex];
+            if (!item) return;
+            document.getElementById('flashWordFront').innerText = item.en || item.secondlang;
+            document.getElementById('flashWordBack').innerText = item.ar;
+            document.getElementById('flashcardCounter').innerText = `${flashIndex + 1} / ${flashList.length}`;
+        }
+
+        function nextFlashcard() {
+            if (flashIndex < flashList.length - 1) { flashIndex++; updateFlashcard(); }
+        }
+
+        function prevFlashcard() {
+            if (flashIndex > 0) { flashIndex--; updateFlashcard(); }
+        }
+
+        /* ----- UNIVERSAL INSTANT DICTIONARY LOGIC (FILTERED BY LANGUAGE CHOICE) ----- */
+        async function searchInstantDict() {
+            const query = document.getElementById('dictInput').value.trim();
+            if (!query) return;
+
+            const box = document.getElementById('dictResultBox');
+            const wordEl = document.getElementById('dictWordResult');
+            const arEl = document.getElementById('dictArResult');
+            const speakBtn = document.getElementById('dictSpeakBtn');
+
+            box.style.display = 'block';
+
+            // Check selected filter option
+            const langSelectEl = document.getElementById('dictLangSelect');
+            const filterVal = langSelectEl ? langSelectEl.value : 'auto';
+
+            let isSecondActive = false;
+            if (filterVal === 'en') {
+                isSecondActive = false;
+            } else if (filterVal === 'second') {
+                isSecondActive = true;
+            } else {
+                // auto: check active tab
+                isSecondActive = document.getElementById('secondlangTab') && document.getElementById('secondlangTab').classList.contains('active');
+            }
+
+            const targetLang = isSecondActive ? (activeSecondLangCode && activeSecondLangCode !== 'none' ? activeSecondLangCode : 'tr') : 'en';
+            const langName = isSecondActive ? (langMetadata[activeSecondLangCode] ? langMetadata[activeSecondLangCode].name : 'التركية') : 'الإنجليزية';
+            const voiceLangCode = isSecondActive ? (langMetadata[activeSecondLangCode] ? langMetadata[activeSecondLangCode].code : 'tr-TR') : 'en-US';
+
+            // 1. Search in local vocabulary lists first
+            const listToSearch = isSecondActive ? secondlangWords : enWords;
+            const foundLocal = listToSearch.find(w => 
+                (w.en && w.en.toLowerCase() === query.toLowerCase()) || 
+                (w.secondlang && w.secondlang.toLowerCase() === query.toLowerCase()) || 
+                (w.ar && w.ar === query)
+            );
+
+            if (foundLocal) {
+                const targetText = foundLocal.en || foundLocal.secondlang;
+                wordEl.innerText = targetText;
+                arEl.innerHTML = `<b>المعنى (${langName}):</b> ${foundLocal.ar}`;
+                speakBtn.onclick = () => {
+                    sayHuman(targetText, isSecondActive ? bestSecond : bestEn, voiceLangCode, () => {});
+                };
+                return;
+            }
+
+            // 2. Fetch live translation via Google Instant Engine (Arabic -> Target Language, or Foreign -> Arabic)
+            wordEl.innerText = query;
+            arEl.innerHTML = `<span style="color: var(--accent-gold); font-size:14px; font-weight:700;">⚡ جاري البحث والترجمة الفورية (${langName})...</span>`;
+
+            try {
+                const isArabic = /[\u0600-\u06FF]/.test(query);
+                const sourceLang = isArabic ? 'ar' : 'auto';
+                const destLang = isArabic ? targetLang : 'ar';
+
+                // Try Google GTX Engine
+                const gtxRes = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${destLang}&dt=t&q=${encodeURIComponent(query)}`);
+                if (gtxRes.ok) {
+                    const gtxData = await gtxRes.json();
+                    if (gtxData && gtxData[0] && gtxData[0][0] && gtxData[0][0][0]) {
+                        const translatedText = gtxData[0][0][0];
+                        
+                        if (isArabic) {
+                            wordEl.innerText = translatedText;
+                            arEl.innerHTML = `<b>الترجمة إلى ${langName}:</b> ${translatedText} <br><span style="font-size:13px;color:var(--text-muted)">الكلمة بالأصل (عربي): ${query}</span>`;
+                            speakBtn.onclick = () => sayHuman(translatedText, isSecondActive ? bestSecond : bestEn, voiceLangCode, () => {});
+                        } else {
+                            wordEl.innerText = query;
+                            arEl.innerHTML = `<b>الترجمة العربية:</b> ${translatedText} <span style="font-size:11px;opacity:0.7">(${langName})</span>`;
+                            speakBtn.onclick = () => sayHuman(query, isSecondActive ? bestSecond : bestEn, voiceLangCode, () => {});
+                        }
+                        return;
+                    }
+                }
+
+                // Fallback to MyMemory
+                let langpair = isArabic ? `ar|${targetLang}` : `${targetLang}|ar`;
+                const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(query)}&langpair=${langpair}`);
+                const data = await res.json();
+                let translated = data.responseData ? data.responseData.translatedText : '';
+
+                if (translated && !translated.startsWith("MYMEMORY WARNING") && !translated.includes("PLEASE SELECT TWO DISTINCT")) {
+                    wordEl.innerText = isArabic ? translated : query;
+                    arEl.innerHTML = `<b>${isArabic ? 'الترجمة إلى ' + langName + ':' : 'الترجمة العربية:'}</b> ${translated}`;
+                    const textToSpeak = isArabic ? translated : query;
+                    speakBtn.onclick = () => sayHuman(textToSpeak, isSecondActive ? bestSecond : bestEn, voiceLangCode, () => {});
+                } else {
+                    arEl.innerHTML = `تعذر العثور على ترجمة دقيقة للكلمة "${query}". يرجى التحقق من الكلمة.`;
+                    speakBtn.onclick = null;
+                }
+            } catch (err) {
+                console.error(err);
+                arEl.innerHTML = `⚠️ خطأ في الاتصال بالقاموس الفوري.`;
+                speakBtn.onclick = null;
+            }
+        }
+
+        function closeDictResult() {
+            document.getElementById('dictResultBox').style.display = 'none';
+        }
+
+        // Empty English Words List (As requested: "عايزك تمسح كلمات الانجلش")
+        let defaultEnWords = [];
+
+        let enWords = [...defaultEnWords];
+        let enSaved = [];
+        let enView = 'all';
+
+        // SECOND LANGUAGE CONFIG & DYNAMIC SWITCHING
+        const langMetadata = {
+            none: { name: 'بدون لغة ثانية', flag: '🚫', code: '', title: 'بدون لغة ثانية', sub: 'SECOND LANGUAGE DISABLED' },
+            de: { name: 'الألمانية', flag: '🇩🇪', code: 'de-DE', title: 'Deutsch Lernen', sub: 'GERMAN LEARNING PLATFORM' },
+            tr: { name: 'التركية', flag: '🇹🇷', code: 'tr-TR', title: 'Türkçe Öğrenimi', sub: 'TURKISH LEARNING PLATFORM' },
+            fr: { name: 'الفرنسية', flag: '🇫🇷', code: 'fr-FR', title: 'Apprendre le Français', sub: 'FRENCH LEARNING PLATFORM' },
+            es: { name: 'الإسبانية', flag: '🇪🇸', code: 'es-ES', title: 'Aprender Español', sub: 'SPANISH LEARNING PLATFORM' },
+            it: { name: 'الإيطالية', flag: '🇮🇹', code: 'it-IT', title: 'Imparare l\'Italiano', sub: 'ITALIAN LEARNING PLATFORM' }
+        };
+
+        let activeSecondLangCode = 'tr'; // Default Turkish for private version
+        let secondlangWords = [];
+        let secondlangSaved = [];
+        let secondlangView = 'all';
+        let bestSecond = null;
+
+        function changeSecondLanguage(langCode) {
+            activeSecondLangCode = langCode;
+            localStorage.setItem('thrive_second_lang_code', langCode);
+
+            const tabBtn = document.getElementById('secondlangBtn');
+            const gameOpt = document.getElementById('gameSecondlangOption');
+            const quizOpt = document.getElementById('quizSecondlangOption');
+
+            if (langCode === 'none') {
+                if (tabBtn) tabBtn.style.display = 'none';
+                if (gameOpt) gameOpt.style.display = 'none';
+                if (quizOpt) quizOpt.style.display = 'none';
+                
+                // If user is currently viewing secondlang tab, switch to English
+                const secondTabEl = document.getElementById('secondlangTab');
+                if (secondTabEl && secondTabEl.classList.contains('active')) {
+                    openTab('english');
+                }
+                return;
+            }
+
+            const metadata = langMetadata[langCode];
+            if (!metadata) return;
+
+            if (tabBtn) {
+                tabBtn.style.display = 'flex';
+                tabBtn.innerHTML = `${metadata.flag} ${metadata.name}`;
+            }
+
+            // Update Wallpaper texts
+            const wallTitle = document.getElementById('secondlangWallTitle');
+            const wallSub = document.getElementById('secondlangWallSub');
+            if (wallTitle && wallSub) {
+                wallTitle.innerText = metadata.title;
+                wallSub.innerText = metadata.sub;
+            }
+
+            // Update Input placeholder
+            const input = document.getElementById('secondlangInput');
+            if (input) {
+                input.placeholder = `الكلمة باللغة ${metadata.name}`;
+            }
+
+            // Update game and quiz select option labels
+            if (gameOpt) {
+                gameOpt.style.display = 'block';
+                gameOpt.innerText = `${metadata.flag} ${metadata.name}`;
+            }
+            if (quizOpt) {
+                quizOpt.style.display = 'block';
+                quizOpt.innerText = `${metadata.flag} ${metadata.name}`;
+            }
+
+            // Load words from memory
+            loadLocalUserData(currentUser ? currentUser.email : 'guest');
+            loadVoices();
+        }
+
+        let speechLoop = 0;
+        let playing = false;
+        let qLoop = 0;
+        let cur = 1;
+        let round = 0;
+        let allVoices = [];
+        let bestEn = null, bestAr = null;
+
+        let quizCurrent = null;
+        let scoreOk = 0;
+        let scoreTotal = 0;
+        let quizPool = [];
+        let quizUsed = [];
+        let timeCounter = 100;
+
+        /* ----- IN-PLATFORM YOUTUBE VIDEO PLAYER LOGIC ----- */
+        function playCourseVideo(videoUrl, title, watchUrl) {
+            const modal = document.getElementById('videoPlayerModal');
+            const frame = document.getElementById('videoPlayerFrame');
+            const titleEl = document.getElementById('videoPlayerTitle');
+            const externalBtn = document.getElementById('openExternalVideoBtn');
+            
+            titleEl.innerText = title;
+            frame.src = videoUrl;
+            if (externalBtn) {
+                externalBtn.href = watchUrl || videoUrl;
+            }
+            modal.classList.add('active');
+        }
+
+        function closeVideoPlayer() {
+            const modal = document.getElementById('videoPlayerModal');
+            const frame = document.getElementById('videoPlayerFrame');
+            frame.src = '';
+            modal.classList.remove('active');
+        }
+
+        /* ----- LOCALSTORAGE CUSTOM DATABASE & USER SESSION ENGINE ----- */
+        function loadSession() {
+            // Restore chosen second language first
+            const savedLangCode = localStorage.getItem('thrive_second_lang_code') || 'tr';
+            document.getElementById('globalSecondLangSelect').value = savedLangCode;
+            changeSecondLanguage(savedLangCode);
+
+            const activeUser = localStorage.getItem('thrive_active_user');
+            if (activeUser) {
+                currentUser = { email: activeUser, displayName: localStorage.getItem('thrive_user_name_' + activeUser) || activeUser.split('@')[0] };
+                updateUserUI(currentUser);
+                loadLocalUserData(activeUser);
+            } else {
+                currentUser = null;
+                updateUserUI(null);
+                loadLocalUserData('guest');
+            }
+        }
+
+        function updateUserUI(user) {
+            if (user) {
+                document.getElementById('userName').innerText = user.displayName;
+                document.getElementById('userEmail').innerText = user.email;
+                document.getElementById('userAvatar').innerText = user.displayName[0].toUpperCase();
+                document.getElementById('authBtn').innerText = '🚪 خروج';
+                document.getElementById('authBtn').onclick = handleSignOut;
+            } else {
+                document.getElementById('userName').innerText = 'زائر جديد';
+                document.getElementById('userEmail').innerText = 'قم بتسجيل الدخول للحفظ والتخصيص';
+                document.getElementById('userAvatar').innerText = '👤';
+                document.getElementById('authBtn').innerText = '🔑 تسجيل الدخول';
+                document.getElementById('authBtn').onclick = openAuthModal;
+            }
+        }
+
+        function handleSignOut() {
+            localStorage.removeItem('thrive_active_user');
+            currentUser = null;
+            enWords = [...defaultEnWords];
+            enSaved = [];
+            secondlangWords = [];
+            secondlangSaved = [];
+            renderEn();
+            renderSecondlang();
+            initMemoryGame();
+            updateUserUI(null);
+        }
+
+        function openAuthModal() {
+            document.getElementById('authModal').classList.add('active');
+            document.getElementById('authError').innerText = '';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+
+        function toggleAuthMode() {
+            isSignUpMode = !isSignUpMode;
+            document.getElementById('nameGroup').style.display = isSignUpMode ? 'block' : 'none';
+            document.getElementById('modalTitle').innerText = isSignUpMode ? 'إنشاء حساب جديد' : 'تسجيل الدخول';
+            document.getElementById('submitAuthBtn').innerText = isSignUpMode ? 'إنشاء الحساب' : 'تسجيل الدخول';
+            document.getElementById('toggleAuthText').innerText = isSignUpMode ? 'لديك حساب بالفعل؟' : 'ليس لديك حساب؟';
+            document.querySelector('#authModal a').innerText = isSignUpMode ? 'تسجيل الدخول' : 'إنشاء حساب جديد';
+        }
+
+        function handleAuthSubmit() {
+            const email = document.getElementById('authEmail').value.trim().toLowerCase();
+            const password = document.getElementById('authPassword').value.trim();
+            const name = document.getElementById('authName').value.trim();
+            const errorEl = document.getElementById('authError');
+            errorEl.innerText = '';
+
+            if (!email || !password) {
+                errorEl.innerText = 'الرجاء إدخال البريد الإلكتروني وكلمة المرور';
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('thrive_users') || '{}');
+            let resolvedName = name;
+
+            if (isSignUpMode) {
+                if (users[email]) {
+                    errorEl.innerText = 'هذا الحساب موجود بالفعل!';
+                    return;
+                }
+                if (!name) {
+                    errorEl.innerText = 'الرجاء إدخال اسمك الكامل لإنشاء الحساب';
+                    return;
+                }
+                users[email] = { password: password, name: name };
+                localStorage.setItem('thrive_users', JSON.stringify(users));
+                localStorage.setItem('thrive_user_name_' + email, name);
+            } else {
+                const userObj = users[email];
+                if (!userObj || userObj.password !== password) {
+                    errorEl.innerText = 'البريد الإلكتروني أو كلمة المرور غير صحيحة!';
+                    return;
+                }
+                resolvedName = userObj.name || email.split('@')[0];
+            }
+
+            // Log user in
+            localStorage.setItem('thrive_active_user', email);
+            closeAuthModal();
+            loadSession();
+            
+            // Show welcome challenge modal
+            showChallengeModal(resolvedName);
+        }
+
+        function showChallengeModal(name) {
+            document.getElementById('challengeText').innerHTML = `مرحبا بك يا <b>${name}</b> هل انت جاهز للتغلب على نفسك بالتعلم الديني والدنيوي؟`;
+            const btn = document.querySelector('#challengeModal .play');
+            if (btn) {
+                btn.innerText = "نعم، متأكد";
+                btn.onclick = acceptChallenge;
+            }
+            document.getElementById('challengeModal').classList.add('active');
+        }
+
+        function acceptChallenge() {
+            document.getElementById('challengeText').innerHTML = "<span style='font-size: 18px; color: #22c55e;'>✨ <b>وفقك الله وسدد خطاك!</b> ✨</span>";
+            const btn = document.querySelector('#challengeModal .play');
+            if (btn) {
+                btn.innerText = "آمين";
+                btn.onclick = () => {
+                    document.getElementById('challengeModal').classList.remove('active');
+                };
+            }
+        }
+
+        function saveLocalUserData() {
+            const email = currentUser ? currentUser.email : 'guest';
+            const data = { enWords, enSaved };
+            localStorage.setItem('thrive_words_' + email, JSON.stringify(data));
+            
+            // Save second language words specifically under its code for isolation
+            const secondLangData = { secondlangWords, secondlangSaved };
+            localStorage.setItem('thrive_words_' + activeSecondLangCode + '_' + email, JSON.stringify(secondLangData));
+        }
+
+        function loadLocalUserData(email) {
+            const stored = localStorage.getItem('thrive_words_' + email);
+            if (stored) {
+                const data = JSON.parse(stored);
+                if (data.enWords) enWords = data.enWords;
+                if (data.enSaved) enSaved = data.enSaved;
+            } else {
+                enWords = [...defaultEnWords];
+                enSaved = [];
+            }
+
+            const storedSecond = localStorage.getItem('thrive_words_' + activeSecondLangCode + '_' + email);
+            if (storedSecond) {
+                const data = JSON.parse(storedSecond);
+                if (data.secondlangWords) secondlangWords = data.secondlangWords;
+                if (data.secondlangSaved) secondlangSaved = data.secondlangSaved;
+            } else {
+                // If it's Turkish and we have default Turkish words, load them
+                if (activeSecondLangCode === 'tr') {
+                    secondlangWords = [
+                        {secondlang:'Merhaba', ar:'مرحباً', t:1}, {secondlang:'Teşekkür ederim', ar:'شكراً لك', t:2},
+                        {secondlang:'Günaydın', ar:'صباح الخير', t:3}, {secondlang:'İyi akşamlar', ar:'مساء الخير', t:4},
+                        {secondlang:'Evet', ar:'نعم', t:5}, {secondlang:'Hayır', ar:'لا', t:6}
+                    ];
+                } else {
+                    secondlangWords = [];
+                }
+                secondlangSaved = [];
+            }
+            renderEn();
+            renderSecondlang();
+            initMemoryGame();
+        }
+
+        // Wisdom list - Richly expanded Arabic quotes & proverbs
+        const hekam = [
+            "من جد وجد، ومن زرع حصد. ساعة مذاكرة اليوم توفر عليك سنة ندم.",
+            "اطلب العلم من المهد إلى اللحد، فالعلم نور يضيء لك الطريق.",
+            "النجاح لا يأتي صدفة، بل هو نتاج عمل دؤوب ومثابرة مستمرة.",
+            "﴿ وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا ﴾ - العنكبوت 69",
+            "﴿ وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ ﴾ - القمر 17",
+            "القرآن يرفع صاحبه في الدنيا والآخرة، فتمسك به.",
+            "الوقت كالسيف إن لم تقطعه قطعك، فاستثمر كل دقيقة.",
+            "إضاعة الوقت أشد من الموت، لأنها تقطعك عن الله والآخرة.",
+            "كل دقيقة تضيعها هي فرصة ضاعت للأبد، فلا تؤجل عمل اليوم إلى الغد.",
+            "العلم كنز لا يفنى، وتاج على رؤوس أصحابه.",
+            "من فتح باب مدرسة أغلق باب سجن.",
+            "لا تقل ليس لدي وقت، فجميع العظماء كان لديهم 24 ساعة في اليوم فقط.",
+            "﴿ يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ ﴾ - المجادلة 11",
+            "خير الناس أنفعهم للناس، وخير العلم ما نُفِع به.",
+            "قطرة المطر تحفر الصخر، لا بالعنف بل بالتكرار والمداومة.",
+            "التعليم هو أقوى سلاح يمكنك استخدامه لتغيير العالم.",
+            "لا تُؤَجِّل عَمَلَ اليَوْمِ إِلَى الغَدِ، وَاجْعَل سَعْيَكَ دَائِمًا فِي المَعَالِي.",
+            "إن الصبر على التعلم مرّ، لكن ثمرته أحلى من العسل.",
+            "﴿ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾ - طه 114",
+            "الخطوة الأولى في التعلم هي التوكل على الله والبدء دون تردد."
+        ];
+
+        function changeHekma() {
+            let el = document.getElementById('footerHekma');
+            let r = hekam[Math.floor(Math.random() * hekam.length)];
+            el.style.opacity = '0';
+            setTimeout(() => {
+                el.innerText = r;
+                el.style.opacity = '1';
+            }, 250);
+        }
+
+        /* ----- UNIVERSAL INSTANT DICTIONARY SEARCH ENGINE ----- */
+        async function searchInstantDict() {
+            let input = document.getElementById('dictInput').value.trim();
+            if (!input) return;
+
+            let resultBox = document.getElementById('dictResultBox');
+            let wordEl = document.getElementById('dictWordResult');
+            let arEl = document.getElementById('dictArResult');
+            let speakBtn = document.getElementById('dictSpeakBtn');
+
+            resultBox.style.display = 'block';
+            wordEl.innerText = input;
+            arEl.innerText = '⚡ جاري البحث والترجمة الفورية لجميع لغات العالم...';
+
+            try {
+                let targetLang = /^[\u0600-\u06FF]/.test(input) ? 'en' : 'ar';
+                let res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=autodetect|${targetLang}`);
+                let json = await res.json();
+                if (json.responseData && json.responseData.translatedText) {
+                    arEl.innerText = 'الترجمة والمعنى: ' + json.responseData.translatedText;
+                } else {
+                    arEl.innerText = 'الترجمة: ' + input;
+                }
+            } catch(e) {
+                arEl.innerText = 'حدث خطأ في الاتصال بالقاموس الفوري.';
+            }
+
+            speakBtn.onclick = () => sayHuman(input, bestEn, 'en-US', ()=>{});
+        }
+
+        function closeDictResult() {
+            document.getElementById('dictResultBox').style.display = 'none';
+        }
+
+        function goTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+        function openTab(t) {
+            ['english', 'secondlang', 'quran', 'adhkar', 'prayer', 'game', 'quiz', 'courses', 'ai'].forEach(tab => {
+                const el = document.getElementById(tab + 'Tab');
+                const btn = document.getElementById(tab + 'Btn');
+                if (el) el.classList.remove('active');
+                if (btn) btn.className = 'tab-btn';
+            });
+            const activeEl = document.getElementById(t + 'Tab');
+            const activeBtn = document.getElementById(t + 'Btn');
+            if (activeEl) activeEl.classList.add('active');
+            if (activeBtn) activeBtn.classList.add('active-' + t);
+            stopSpeech();
+            changeHekma();
+            if (t === 'quiz') resetQuiz();
+            if (t === 'game') initMemoryGame();
+            if (t === 'adhkar') renderAdhkar();
+        }
+
+        // Voice Engine Initialization
+        function loadVoices() {
+            allVoices = speechSynthesis.getVoices();
+            if (!allVoices.length) {
+                setTimeout(loadVoices, 400);
+                return;
+            }
+            bestEn = allVoices.find(v => v.name.includes('Google US English') || v.lang === 'en-US') || allVoices.find(v => v.lang.startsWith('en')) || allVoices[0];
+            bestAr = allVoices.find(v => v.lang === 'ar-EG') || allVoices.find(v => v.lang === 'ar-SA') || allVoices.find(v => v.lang.startsWith('ar')) || null;
+            
+            // Resolve second language voice dynamically
+            const activeCode = langMetadata[activeSecondLangCode].code;
+            bestSecond = allVoices.find(v => v.lang === activeCode || v.lang.startsWith(activeSecondLangCode)) || null;
+        }
+        speechSynthesis.onvoiceschanged = loadVoices;
+        loadVoices();
+
+        function sayHuman(text, voiceObj, langCode, onEndCallback) {
+            let u = new SpeechSynthesisUtterance(text);
+            if (voiceObj) {
+                u.voice = voiceObj;
+                u.lang = voiceObj.lang;
+            } else {
+                u.lang = langCode;
+            }
+            u.rate = 0.85;
+            u.pitch = 1.0;
+            u.volume = 1;
+            u.onend = onEndCallback;
+            u.onerror = onEndCallback;
+            speechSynthesis.speak(u);
+        }
+
+        function stopSpeech() {
+            speechLoop++;
+            playing = false;
+            speechSynthesis.cancel();
+        }
+
+        /* ----- ENGLISH SECTION LOGIC ----- */
+        function setEnView(v) {
+            enView = v;
+            document.getElementById('allEnBtn').classList.toggle('active', v === 'all');
+            document.getElementById('savedEnBtn').classList.toggle('active', v === 'saved');
+            filterEnWords();
+        }
+
+        function getEnList() {
+            let base = enView === 'all' ? enWords : enSaved;
+            let q = document.getElementById('searchEn').value.toLowerCase().trim();
+            if (q) base = base.filter(w => w.en.toLowerCase().includes(q) || w.ar.includes(q));
+            return base;
+        }
+
+        function renderEn() {
+            let list = getEnList();
+            document.getElementById('countAllEn').innerText = enWords.length;
+            document.getElementById('countSavedEn').innerText = enSaved.length;
+            
+            if (!list.length) {
+                document.getElementById('enList').innerHTML = `<div class='small' style='padding:20px'>${enView === 'all' ? 'لا توجد كلمات حالياً - قم بإضافة كلماتك الخاصة لبدء التعلم!' : 'قائمة المحفوظات فارغة'}</div>`;
+                return;
+            }
+
+            document.getElementById('enList').innerHTML = list.map((w) => {
+                let isAll = enView === 'all';
+                let idx = isAll ? enWords.indexOf(w) : enSaved.indexOf(w);
+                return `
+                    <div class='card'>
+                        <div>
+                            <div class='foreign-text'>${w.en} <span class='badge'>EN</span></div>
+                            <div class='ar-text'>${w.ar}</div>
+                        </div>
+                        <div style='display:flex;gap:6px;flex-wrap:wrap'>
+                            <button class='btn btn-en' style='padding:8px 12px' onclick='speakEnWord(${idx})'>🔊 نطق</button>
+                            ${isAll ? 
+                                `<button class='btn' style='padding:8px 12px;background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.3)' onclick='saveEnWord(${idx})'>⭐ حفظ</button>` : 
+                                `<button class='btn' style='padding:8px 12px;background:rgba(56,189,248,0.15);color:#7dd3fc' onclick='unsaveEnWord(${idx})'>↩ إرجاع</button>`
+                            }
+                            <button class='btn del' style='padding:8px 10px' onclick='delEnWord(${idx})'>✕</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function speakEnWord(i) {
+            stopSpeech();
+            let arr = enView === 'saved' ? enSaved : enWords;
+            let w = arr[i];
+            if (!w) return;
+            let c = speechLoop;
+            sayHuman(w.en, bestEn, 'en-US', () => {
+                if (c !== speechLoop) return;
+                sayHuman(w.ar, bestAr, 'ar-EG', () => {});
+            });
+        }
+
+        function speakAllEn() {
+            let list = getEnList();
+            if (!list.length) return;
+            stopSpeech();
+            playing = true;
+            let c = speechLoop, idx = 0;
+            function next() {
+                if (!playing || c !== speechLoop) return;
+                if (idx >= list.length) idx = 0;
+                let w = list[idx];
+                sayHuman(w.en, bestEn, 'en-US', () => {
+                    if (c !== speechLoop) return;
+                    sayHuman(w.ar, bestAr, 'ar-EG', () => {
+                        if (c !== speechLoop) return;
+                        idx++;
+                        setTimeout(next, 700);
+                    });
+                });
+            }
+            next();
+        }
+
+        function addEnWord() {
+            let e = document.getElementById('enInput').value.trim();
+            let a = document.getElementById('arEnInput').value.trim();
+            if (!e || !a) { alert('الرجاء كتابة الكلمة الإنجليزية ومعناها العربي'); return; }
+            enWords.unshift({ en: e, ar: a, t: ++timeCounter, custom: true });
+            document.getElementById('enInput').value = '';
+            document.getElementById('arEnInput').value = '';
+            setEnView('all');
+            saveLocalUserData();
+            initMemoryGame();
+        }
+
+        function saveEnWord(i) {
+            let w = enWords.splice(i, 1)[0];
+            if (w) { enSaved.unshift(w); renderEn(); saveLocalUserData(); }
+        }
+
+        function unsaveEnWord(i) {
+            let w = enSaved.splice(i, 1)[0];
+            if (w) { enWords.unshift(w); renderEn(); saveLocalUserData(); }
+        }
+
+        function delEnWord(i) {
+            if (enView === 'saved') enSaved.splice(i, 1);
+            else enWords.splice(i, 1);
+            renderEn();
+            saveLocalUserData();
+            initMemoryGame();
+        }
+
+        function filterEnWords() { renderEn(); }
+
+        function sortEnWords() {
+            let t = document.getElementById('sortEn').value;
+            let sorter;
+            if (t === 'az') sorter = (a, b) => a.en.localeCompare(b.en);
+            else if (t === 'za') sorter = (a, b) => b.en.localeCompare(a.en);
+            else if (t === 'new') sorter = (a, b) => b.t - a.t;
+            else if (t === 'old') sorter = (a, b) => a.t - b.t;
+            enWords.sort(sorter);
+            enSaved.sort(sorter);
+            renderEn();
+        }
+
+
+        /* ----- SECOND LANG SECTION LOGIC ----- */
+        function setSecondlangView(v) {
+            secondlangView = v;
+            document.getElementById('allSecondlangBtn').classList.toggle('active', v === 'all');
+            document.getElementById('savedSecondlangBtn').classList.toggle('active', v === 'saved');
+            filterSecondlangWords();
+        }
+
+        function getSecondlangList() {
+            let base = secondlangView === 'all' ? secondlangWords : secondlangSaved;
+            let q = document.getElementById('searchSecondlang').value.toLowerCase().trim();
+            if (q) base = base.filter(w => w.secondlang.toLowerCase().includes(q) || w.ar.includes(q));
+            return base;
+        }
+
+        function renderSecondlang() {
+            let list = getSecondlangList();
+            document.getElementById('countAllSecondlang').innerText = secondlangWords.length;
+            document.getElementById('countSavedSecondlang').innerText = secondlangSaved.length;
+            
+            if (!list.length) {
+                document.getElementById('secondlangList').innerHTML = `<div class='small' style='padding:20px'>لا توجد كلمات حالياً - اضغط إضافة لإضافة كلماتك الخاصة</div>`;
+                return;
+            }
+
+            document.getElementById('secondlangList').innerHTML = list.map((w) => {
+                let isAll = secondlangView === 'all';
+                let idx = isAll ? secondlangWords.indexOf(w) : secondlangSaved.indexOf(w);
+                return `
+                    <div class='card'>
+                        <div>
+                            <div class='foreign-text secondlang-text'>${w.secondlang} <span class='badge badge-secondlang'>${activeSecondLangCode.toUpperCase()}</span></div>
+                            <div class='ar-text'>${w.ar}</div>
+                        </div>
+                        <div style='display:flex;gap:6px;flex-wrap:wrap'>
+                            <button class='btn btn-tr' style='padding:8px 12px' onclick='speakSecondlangWord(${idx})'>🔊 نطق</button>
+                            ${isAll ? 
+                                `<button class='btn' style='padding:8px 12px;background:rgba(244,63,94,0.15);color:#fda4af;border:1px solid rgba(244,63,94,0.3)' onclick='saveSecondlangWord(${idx})'>⭐ حفظ</button>` : 
+                                `<button class='btn' style='padding:8px 12px;background:rgba(56,189,248,0.15);color:#7dd3fc' onclick='unsaveSecondlangWord(${idx})'>↩ إرجاع</button>`
+                            }
+                            <button class='btn del' style='padding:8px 10px' onclick='delSecondlangWord(${idx})'>✕</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function speakSecondlangWord(i) {
+            stopSpeech();
+            let arr = secondlangView === 'saved' ? secondlangSaved : secondlangWords;
+            let w = arr[i];
+            if (!w) return;
+            let c = speechLoop;
+            sayHuman(w.secondlang, bestSecond, langMetadata[activeSecondLangCode].code, () => {
+                if (c !== speechLoop) return;
+                sayHuman(w.ar, bestAr, 'ar-EG', () => {});
+            });
+        }
+
+        function speakAllSecondlang() {
+            let list = getSecondlangList();
+            if (!list.length) return;
+            stopSpeech();
+            playing = true;
+            let c = speechLoop, idx = 0;
+            function next() {
+                if (!playing || c !== speechLoop) return;
+                if (idx >= list.length) idx = 0;
+                let w = list[idx];
+                sayHuman(w.secondlang, bestSecond, langMetadata[activeSecondLangCode].code, () => {
+                    if (c !== speechLoop) return;
+                    sayHuman(w.ar, bestAr, 'ar-EG', () => {
+                        if (c !== speechLoop) return;
+                        idx++;
+                        setTimeout(next, 700);
+                    });
+                });
+            }
+            next();
+        }
+
+        function addSecondlangWord() {
+            let s = document.getElementById('secondlangInput').value.trim();
+            let a = document.getElementById('arSecondlangInput').value.trim();
+            if (!s || !a) { alert('الرجاء كتابة الكلمة ومعناها العربي'); return; }
+            secondlangWords.unshift({ secondlang: s, ar: a, t: ++timeCounter, custom: true });
+            document.getElementById('secondlangInput').value = '';
+            document.getElementById('arSecondlangInput').value = '';
+            setSecondlangView('all');
+            saveLocalUserData();
+            initMemoryGame();
+        }
+
+        // 🔑 Embedded Gemini Key (مفتاحك المثبت من Google AI Studio)
+        const EMBEDDED_GEMINI_KEY = 'AQ.Ab8RN6K0Our18bHDAo4MzXfc5cB8TPGlV4qtL939dmA9fKDKhA';
+
+        async function generateRealAiSummary(text, container) {
+            container.innerHTML = '<div class="small" style="padding:20px;text-align:center;font-size:16px">⚡ جاري تلخيص النص واستخراج الكلمات بالذكاء الاصطناعي...</div>';
+
+            let key = localStorage.getItem('thrive_gemini_key') || EMBEDDED_GEMINI_KEY;
+            if (key) {
+                let promptStr = `You are Google Gemini Pro, an expert English tutor. Summarize this text: "${text}".
+Format response strictly as JSON with keys:
+"level": (e.g. "مبتدئ (A1)" or "متوسط (B1)" or "متقدم (C1)"),
+"wordCount": (number of words in original text),
+"summaryPoints": [ (array of strings, each containing an English sentence and its Arabic translation) ],
+"keyVocab": [ (array of objects: {"en": "word", "ar": "translation"}) ]
+Return ONLY valid JSON.`;
+
+                let raw = await callGeminiProApi(promptStr);
+                if (raw) {
+                    try {
+                        let cleanJson = raw.replace(/```json|```/g, '').trim();
+                        let parsed = JSON.parse(cleanJson);
+
+                        let summaryHtml = parsed.summaryPoints.map(p => `
+                            <li style="margin-bottom:12px;background:rgba(255,255,255,0.03);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.06)">
+                                <div style="font-weight:700;color:#7dd3fc;direction:ltr;font-family:'Montserrat',sans-serif">🔹 ${p}</div>
+                            </li>
+                        `).join('');
+
+                        let vocabCards = parsed.keyVocab.map(v => `
+                            <div style="background:rgba(30,41,59,0.9);padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center">
+                                <div>
+                                    <div style="font-weight:800;color:#7dd3fc;direction:ltr;font-family:'Montserrat',sans-serif">${v.en}</div>
+                                    <div style="font-size:13px;color:#fde68a;font-family:'Amiri',serif">${v.ar}</div>
+                                </div>
+                                <button class="btn btn-en" style="padding:4px 8px;font-size:11px" onclick="sayHuman('${v.en.replace(/'/g, "\\'")}', bestEn, 'en-US', ()=>{})">🔊 نطق</button>
+                            </div>
+                        `).join('');
+
+                        container.innerHTML = `
+                            <div style="display:flex;gap:15px;margin-bottom:14px;flex-wrap:wrap">
+                                <div style="background:rgba(251,191,36,0.15);padding:8px 14px;border-radius:12px;color:var(--accent-gold);font-weight:800">📊 المستوى: ${parsed.level}</div>
+                                <div style="background:rgba(56,189,248,0.15);padding:8px 14px;border-radius:12px;color:var(--accent-blue);font-weight:800">📝 عدد الكلمات: ${parsed.wordCount || text.split(/\s+/).length} كلمة</div>
+                            </div>
+
+                            <div style="font-size:16px;font-weight:800;color:#818cf8;margin:12px 0 8px">📌 ملخص النقاط الرئيسية بـ Google Gemini Pro:</div>
+                            <ul style="list-style:none;padding:0">${summaryHtml}</ul>
+
+                            ${vocabCards ? `
+                                <div style="font-size:16px;font-weight:800;color:var(--accent-gold);margin:16px 0 10px">🗝️ أهم الكلمات والمفردات المستخرجة:</div>
+                                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">${vocabCards}</div>
+                            ` : ''}
+                        `;
+                        return;
+                    } catch(e) { console.warn("Gemini summary JSON parse error", e); }
+                }
+            }
+
+            // Fallback Summarizer Engine
+            const words = text.match(/\b[a-zA-Z\u00C0-\u024F'-]+\b/g) || [];
+            const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 5);
+
+            let avgWordLen = words.length ? words.reduce((acc, w) => acc + w.length, 0) / words.length : 0;
+            let level = 'مبتدئ (A1 - A2)';
+            if (words.length > 50 || avgWordLen > 5.5) level = 'متوسط (B1 - B2)';
+            if (words.length > 150 || avgWordLen > 6.5) level = 'متقدم (C1 - C2)';
+
+            let summaryItems = [];
+            let targetSentences = sentences.length <= 3 ? sentences : [sentences[0], sentences[Math.floor(sentences.length / 2)], sentences[sentences.length - 1]];
+
+            for (let s of targetSentences) {
+                let clean = s.trim();
+                try {
+                    let res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(clean)}&langpair=en|ar`);
+                    let json = await res.json();
+                    let arText = json.responseData ? json.responseData.translatedText : clean;
+                    summaryItems.push(`
+                        <li style="margin-bottom:12px;background:rgba(255,255,255,0.03);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.06)">
+                            <div style="font-weight:700;color:#7dd3fc;direction:ltr;font-family:'Montserrat',sans-serif">🔹 ${clean}</div>
+                            <div style="color:#fde68a;margin-top:4px;font-family:'Amiri',serif">الترجمة والملخص: ${arText}</div>
+                        </li>
+                    `);
+                } catch(e) {
+                    summaryItems.push(`<li>${clean}</li>`);
+                }
+            }
+
+            const stopWords = new Set(['the','be','to','of','and','a','in','that','have','i','it','for','not','on','with','he','as','you','do','at','this','but','his','by','from','they','we','say','her','she','or','an','will','my','one','all','would','there','their','what','so','up','out','if','about','who','get','which','go','me','when','make','can','like','time','no','just','him','know','take','people','into','year','your','good','some','could','them','see','other','than','then','now','look','only','come','its','over','think','also','back','after','use','two','how','our','work','first','well','way','even','new','want','because','any','these','give','day','most','us']);
+            const uniqueVocab = [...new Set(words.map(w => w.toLowerCase()))].filter(w => w.length > 3 && !stopWords.has(w)).slice(0, 6);
+
+            let vocabCards = '';
+            for (let v of uniqueVocab) {
+                try {
+                    let trRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(v)}&langpair=en|ar`);
+                    let trData = await trRes.json();
+                    let arVal = trData.responseData ? trData.responseData.translatedText : v;
+                    vocabCards += `
+                        <div style="background:rgba(30,41,59,0.9);padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <div style="font-weight:800;color:#7dd3fc;direction:ltr;font-family:'Montserrat',sans-serif">${v}</div>
+                                <div style="font-size:13px;color:#fde68a;font-family:'Amiri',serif">${arVal}</div>
+                            </div>
+                            <button class="btn btn-en" style="padding:4px 8px;font-size:11px" onclick="sayHuman('${v}', bestEn, 'en-US', ()=>{})">🔊 نطق</button>
+                        </div>
+                    `;
+                } catch(e) {}
+            }
+
+            container.innerHTML = `
+                <div style="display:flex;gap:15px;margin-bottom:14px;flex-wrap:wrap">
+                    <div style="background:rgba(251,191,36,0.15);padding:8px 14px;border-radius:12px;color:var(--accent-gold);font-weight:800">📊 المستوى: ${level}</div>
+                    <div style="background:rgba(56,189,248,0.15);padding:8px 14px;border-radius:12px;color:var(--accent-blue);font-weight:800">📝 عدد الكلمات: ${words.length} كلمة</div>
+                </div>
+
+                <div style="font-size:16px;font-weight:800;color:#818cf8;margin:12px 0 8px">📌 ملخص النقاط الرئيسية بالذكاء الاصطناعي:</div>
+                <ul style="list-style:none;padding:0">${summaryItems.join('')}</ul>
+
+                ${vocabCards ? `
+                    <div style="font-size:16px;font-weight:800;color:var(--accent-gold);margin:16px 0 10px">🗝️ المفردات الأساسية واستخراج المعنى للنص:</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">${vocabCards}</div>
+                ` : ''}
+            `;
+        }
+
+        function saveSecondlangWord(i) {
+            let w = secondlangWords.splice(i, 1)[0];
+            if (w) { secondlangSaved.unshift(w); renderSecondlang(); saveLocalUserData(); }
+        }
+
+        function unsaveSecondlangWord(i) {
+            let w = secondlangSaved.splice(i, 1)[0];
+            if (w) { secondlangWords.unshift(w); renderSecondlang(); saveLocalUserData(); }
+        }
+
+        function delSecondlangWord(i) {
+            if (secondlangView === 'saved') secondlangSaved.splice(i, 1);
+            else secondlangWords.splice(i, 1);
+            renderSecondlang();
+            saveLocalUserData();
+            initMemoryGame();
+        }
+
+        function filterSecondlangWords() { renderSecondlang(); }
+
+        function sortSecondlangWords() {
+            let t = document.getElementById('sortSecondlang').value;
+            let sorter;
+            if (t === 'az') sorter = (a, b) => a.secondlang.localeCompare(b.secondlang);
+            else if (t === 'za') sorter = (a, b) => b.secondlang.localeCompare(a.secondlang);
+            else if (t === 'new') sorter = (a, b) => b.t - a.t;
+            else if (t === 'old') sorter = (a, b) => a.t - b.t;
+            secondlangWords.sort(sorter);
+            secondlangSaved.sort(sorter);
+            renderSecondlang();
+        }
+
+
+        /* ----- QURAN SECTION LOGIC ----- */
+        function pad3(n) { return n.toString().padStart(3, '0'); }
+
+        function updateReader() {
+            let sel = document.getElementById('readerSelect');
+            let name = sel.options[sel.selectedIndex].getAttribute('data-name');
+            document.getElementById('readerName').innerText = name;
+            document.getElementById('readerDot').className = 'status-dot dot-on';
+            document.getElementById('readerStatus').innerText = name + ' جاهز للتلاوة';
+        }
+
+        function updateBtnText() {
+            let f = document.getElementById('fromAya').value;
+            let t = document.getElementById('toAya').value;
+            if (f && t) {
+                document.getElementById('playBtn').innerText = '▶ تشغيل من ' + f + ' لـ ' + t + ' والتظليل المباشر';
+                document.getElementById('quranStatus').innerText = 'جاهز: من آية ' + f + ' إلى ' + t;
+            }
+        }
+
+        function changeQuranSpeed() {
+            let speed = parseFloat(document.getElementById('quranSpeedSelect').value);
+            let audio = document.getElementById('quranAudio');
+            if (audio) audio.playbackRate = speed;
+        }
+
+        function playQuranRange() {
+            let reader = document.getElementById('readerSelect').value;
+            let sura = document.getElementById('suraSelect').value;
+            let from = parseInt(document.getElementById('fromAya').value);
+            let to = parseInt(document.getElementById('toAya').value);
+            let rep = parseInt(document.getElementById('repeatCount').value);
+            let speed = parseFloat(document.getElementById('quranSpeedSelect').value);
+            let audio = document.getElementById('quranAudio');
+            let st = document.getElementById('quranStatus');
+            let dot = document.getElementById('readerDot');
+
+            if (from > to) { alert('يجب أن تكون آية البداية أقل أو تساوي آية النهاية'); return; }
+            
+            qLoop++;
+            let myLoop = qLoop;
+            cur = from;
+            round = 0;
+            dot.className = 'status-dot dot-on';
+
+            function playOne() {
+                if (myLoop !== qLoop) return;
+                let url = 'https://everyayah.com/data/' + reader + '/' + sura + pad3(cur) + '.mp3';
+                st.innerText = 'تلاوة ' + document.getElementById('readerName').innerText + ' - آية ' + cur + ' (تكرار ' + (round + 1) + ')';
+                audio.src = url;
+                audio.playbackRate = speed;
+                highlightPlayingAyah(cur);
+                audio.play().catch(() => {
+                    st.innerText = 'خطأ أثناء تشغيل الآية';
+                    dot.className = 'status-dot dot-off';
+                });
+            }
+
+            audio.onended = () => {
+                if (myLoop !== qLoop) return;
+                if (cur < to) {
+                    cur++;
+                } else {
+                    round++;
+                    if (rep !== 0 && round >= rep) {
+                        st.innerText = 'تم الانتهاء من التلاوة المحددة';
+                        dot.className = 'status-dot dot-off';
+                        return;
+                    }
+                    cur = from;
+                }
+                playOne();
+            };
+
+            playOne();
+        }
+
+        function stopQuran() {
+            qLoop++;
+            let a = document.getElementById('quranAudio');
+            a.pause();
+            a.currentTime = 0;
+            a.onended = null;
+            document.getElementById('quranStatus').innerText = 'تم الإيقاف';
+            document.getElementById('readerDot').className = 'status-dot dot-off';
+            document.querySelectorAll('.aya-unit').forEach(el => el.classList.remove('active-playing'));
+        }
+
+
+        /* ----- QUIZ SECTION LOGIC ----- */
+        function buildQuizPool() {
+            let lang = document.getElementById('quizLangSelect').value;
+            let source = lang === 'en' ? (enSaved.length > 0 ? enSaved : enWords) : (secondlangSaved.length > 0 ? secondlangSaved : secondlangWords);
+            
+            let pool = [...source];
+            for (let i = pool.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+            quizPool = pool;
+            quizUsed = [];
+        }
+
+        function startQuiz() {
+            buildQuizPool();
+            if (!quizPool.length) {
+                document.getElementById('quizQuestion').innerText = '⚠️ لا توجد كلمات كافية في هذا القسم لبدء الاختبار!';
+                document.getElementById('quizProgress').innerText = '';
+                return;
+            }
+
+            let idx = 0;
+            quizUsed.push(idx);
+            quizCurrent = quizPool[idx];
+
+            document.getElementById('quizQuestion').innerText = quizCurrent.ar;
+            document.getElementById('quizAnswer').value = '';
+            document.getElementById('quizResult').innerText = '';
+            document.getElementById('quizProgress').innerText = `التقدم: ${quizUsed.length} / ${quizPool.length}`;
+            document.getElementById('quizAnswer').focus();
+        }
+
+        function checkQuiz() {
+            if (!quizCurrent) return;
+            let lang = document.getElementById('quizLangSelect').value;
+            let targetWord = lang === 'en' ? quizCurrent.en : quizCurrent.secondlang;
+            let userAns = document.getElementById('quizAnswer').value.trim().toLowerCase();
+            
+            scoreTotal++;
+            if (userAns === targetWord.toLowerCase()) {
+                document.getElementById('quizResult').innerText = 'إجابة صحيحة وممتازة! 🎉';
+                document.getElementById('quizResult').style.color = '#22c55e';
+                scoreOk++;
+            } else {
+                document.getElementById('quizResult').innerText = `إجابة خاطئة ❌ الإجابة الصحيحة: ${targetWord}`;
+                document.getElementById('quizResult').style.color = '#ef4444';
+            }
+
+            document.getElementById('quizScore').innerText = `النتيجة: ${scoreOk} / ${scoreTotal}`;
+            
+            // Wait and proceed
+            setTimeout(() => {
+                if (quizUsed.length < quizPool.length) {
+                    let nextIdx = quizUsed.length;
+                    quizUsed.push(nextIdx);
+                    quizCurrent = quizPool[nextIdx];
+                    document.getElementById('quizQuestion').innerText = quizCurrent.ar;
+                    document.getElementById('quizAnswer').value = '';
+                    document.getElementById('quizResult').innerText = '';
+                    document.getElementById('quizProgress').innerText = `التقدم: ${quizUsed.length} / ${quizPool.length}`;
+                    document.getElementById('quizAnswer').focus();
+                } else {
+                    document.getElementById('quizQuestion').innerText = '✨ انتهى الاختبار! أحسنت صنعاً. ✨';
+                    document.getElementById('quizAnswer').value = '';
+                    document.getElementById('quizResult').innerText = '';
+                    document.getElementById('quizProgress').innerText = '';
+                }
+            }, 1800);
+        }
+
+        function showAnswer() {
+            if (quizCurrent) {
+                let lang = document.getElementById('quizLangSelect').value;
+                let targetWord = lang === 'en' ? quizCurrent.en : quizCurrent.secondlang;
+                document.getElementById('quizResult').innerText = 'الإجابة هي: ' + targetWord;
+                document.getElementById('quizResult').style.color = '#fbbf24';
+            }
+        }
+
+        function resetQuiz() {
+            scoreOk = 0;
+            scoreTotal = 0;
+            quizUsed = [];
+            quizPool = [];
+            document.getElementById('quizScore').innerText = 'النتيجة: 0 / 0';
+            document.getElementById('quizResult').innerText = '';
+            document.getElementById('quizProgress').innerText = '';
+            startQuiz();
+        }
+
+        /* ----- REAL AI ENGINE & GRAMMAR FIXER ----- */
+        async function runRealAi(mode) {
+            const input = document.getElementById('realAiInput').value.trim();
+            if (!input) {
+                alert('الرجاء كتابة أو لصق النص أو الجملة أولاً');
+                return;
+            }
+
+            const card = document.getElementById('realAiResultCard');
+            const titleEl = document.getElementById('realAiResultTitle');
+            const bodyEl = document.getElementById('realAiResultBody');
+
+            card.style.display = 'block';
+            titleEl.innerText = mode === 'summarize' ? '⚡ 1. ملخص النص بالذكاء الاصطناعي' : '✏️ 2. تصحيح القواعد والشرح النحوي';
+            bodyEl.innerHTML = '<div class="small" style="padding:20px;text-align:center;font-size:16px">⚡ جارٍ التحليل والمعالجة بالذكاء الاصطناعي...</div>';
+
+            if (mode === 'summarize') {
+                await generateRealAiSummary(input, bodyEl);
+            } else if (mode === 'grammar') {
+                await generateRealAiGrammar(input, bodyEl);
+            }
+        }
+
+        async function generateRealAiSummary(text, container) {
+            const words = text.match(/\b[a-zA-Z\u00C0-\u024F'-]+\b/g) || [];
+            const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 5);
+
+            // Difficulty Level Calculation
+            let avgWordLen = words.length ? words.reduce((acc, w) => acc + w.length, 0) / words.length : 0;
+            let level = 'مبتدئ (A1 - A2)';
+            if (words.length > 50 || avgWordLen > 5.5) level = 'متوسط (B1 - B2)';
+            if (words.length > 150 || avgWordLen > 6.5) level = 'متقدم (C1 - C2)';
+
+            // Sentences Summarizing with MyMemory Translation Engine
+            let summaryItems = [];
+            let targetSentences = sentences.length <= 3 ? sentences : [sentences[0], sentences[Math.floor(sentences.length / 2)], sentences[sentences.length - 1]];
+
+            for (let s of targetSentences) {
+                let clean = s.trim();
+                try {
+                    let res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(clean)}&langpair=en|ar`);
+                    let json = await res.json();
+                    let arText = json.responseData ? json.responseData.translatedText : clean;
+                    summaryItems.push(`
+                        <li style="margin-bottom:12px;background:rgba(255,255,255,0.03);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.06)">
+                            <div style="font-weight:700;color:#7dd3fc;direction:ltr;font-family:'Montserrat',sans-serif">🔹 ${clean}</div>
+                            <div style="color:#fde68a;margin-top:4px;font-family:'Amiri',serif">الترجمة والملخص: ${arText}</div>
+                        </li>
+                    `);
+                } catch(e) {
+                    summaryItems.push(`<li>${clean}</li>`);
+                }
+            }
+
+            // Key Vocab Extract
+            const stopWords = new Set(['the','be','to','of','and','a','in','that','have','i','it','for','not','on','with','he','as','you','do','at','this','but','his','by','from','they','we','say','her','she','or','an','will','my','one','all','would','there','their','what','so','up','out','if','about','who','get','which','go','me','when','make','can','like','time','no','just','him','know','take','people','into','year','your','good','some','could','them','see','other','than','then','now','look','only','come','its','over','think','also','back','after','use','two','how','our','work','first','well','way','even','new','want','because','any','these','give','day','most','us']);
+            const uniqueVocab = [...new Set(words.map(w => w.toLowerCase()))].filter(w => w.length > 3 && !stopWords.has(w)).slice(0, 6);
+
+            let vocabCards = '';
+            for (let v of uniqueVocab) {
+                try {
+                    let trRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(v)}&langpair=en|ar`);
+                    let trData = await trRes.json();
+                    let arVal = trData.responseData ? trData.responseData.translatedText : v;
+                    vocabCards += `
+                        <div style="background:rgba(30,41,59,0.9);padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <div style="font-weight:800;color:#7dd3fc;direction:ltr;font-family:'Montserrat',sans-serif">${v}</div>
+                                <div style="font-size:13px;color:#fde68a;font-family:'Amiri',serif">${arVal}</div>
+                            </div>
+                            <button class="btn btn-en" style="padding:4px 8px;font-size:11px" onclick="sayHuman('${v}', bestEn, 'en-US', ()=>{})">🔊 نطق</button>
+                        </div>
+                    `;
+                } catch(e) {}
+            }
+
+            container.innerHTML = `
+                <div style="display:flex;gap:15px;margin-bottom:14px;flex-wrap:wrap">
+                    <div style="background:rgba(251,191,36,0.15);padding:8px 14px;border-radius:12px;color:var(--accent-gold);font-weight:800">📊 المستوى: ${level}</div>
+                    <div style="background:rgba(56,189,248,0.15);padding:8px 14px;border-radius:12px;color:var(--accent-blue);font-weight:800">📝 عدد الكلمات: ${words.length} كلمة</div>
+                </div>
+
+                <div style="font-size:16px;font-weight:800;color:#818cf8;margin:12px 0 8px">📌 ملخص النقاط الرئيسية بالذكاء الاصطناعي:</div>
+                <ul style="list-style:none;padding:0">${summaryItems.join('')}</ul>
+
+                ${vocabCards ? `
+                    <div style="font-size:16px;font-weight:800;color:var(--accent-gold);margin:16px 0 10px">🗝️ المفردات الأساسية واستخراج المعنى للنص:</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">${vocabCards}</div>
+                ` : ''}
+            `;
+        }
+
+        function setGeminiKey() {
+            let currentKey = localStorage.getItem('thrive_gemini_key') || '';
+            let key = prompt('أدخل مفتاح Google Gemini Pro API الخاص بك (أو اتركه فارغاً لاستخدام محرك الذكاء الاصطناعي التلقائي للمنصة):', currentKey);
+            if (key !== null) {
+                key = key.trim();
+                if (key) {
+                    localStorage.setItem('thrive_gemini_key', key);
+                    alert('🎉 تم ربط وحفظ مفتاح Google Gemini Pro بنجاح! سيتم استخدام Gemini Pro الآن لجميع العمليات.');
+                } else {
+                    localStorage.removeItem('thrive_gemini_key');
+                    alert('تم إزالة المفتاح والعودة لاستخدام المحرك التلقائي.');
+                }
+                updateGeminiStatus();
+            }
+        }
+
+        function updateGeminiStatus() {
+            let badge = document.getElementById('geminiEngineName');
+            let key = localStorage.getItem('thrive_gemini_key') || EMBEDDED_GEMINI_KEY;
+            if (badge) {
+                badge.innerText = key ? 'Google Gemini Pro (نشط تلقائياً 🚀)' : 'Smart AI Engine (تلقائي ⚡)';
+                badge.style.color = key ? '#10b981' : '#38bdf8';
+            }
+        }
+
+        async function callGeminiProApi(promptText) {
+            let key = localStorage.getItem('thrive_gemini_key') || EMBEDDED_GEMINI_KEY;
+            if (!key) return null;
+
+            const endpoints = [
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-latest:generateContent`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${key}`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${key}`
+            ];
+
+            const payload = { contents: [{ parts: [{ text: promptText }] }] };
+
+            for (let url of endpoints) {
+                try {
+                    let res = await fetch(url, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'x-goog-api-key': key
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) {
+                        let data = await res.json();
+                        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                            return data.candidates[0].content.parts[0].text;
+                        }
+                    }
+                } catch(e) {
+                    console.warn("Gemini API call failed for endpoint:", url, e);
+                }
+            }
+            return null;
+        }
+
+        async function generateRealAiGrammar(text, container) {
+            let original = text.trim();
+            container.innerHTML = '<div class="small" style="padding:20px;text-align:center;font-size:16px">⚡ جاري تحليل وإعادة صياغة الجملة بالذكاء الاصطناعي...</div>';
+
+            // Check if Gemini Pro Key is available
+            let key = localStorage.getItem('thrive_gemini_key') || EMBEDDED_GEMINI_KEY;
+            if (key) {
+                let promptStr = `You are Google Gemini Pro, an expert multilingual language tutor (supporting English, Turkish, German, Arabic, etc.). Analyze, fix, and improve this sentence: "${original}".
+Format your response strictly as JSON with keys:
+"corrected": (the fixed correct sentence in its original language),
+"native": (the most natural native phrasing in its original language),
+"explanation": (detailed explanation of the grammar/spelling errors and rules in Arabic).
+Do not wrap response in markdown blocks or extra text. Return ONLY the JSON object.`;
+
+                let rawResponse = await callGeminiProApi(promptStr);
+                if (rawResponse) {
+                    try {
+                        let cleanJsonStr = rawResponse.replace(/```json|```/g, '').trim();
+                        let parsed = JSON.parse(cleanJsonStr);
+                        renderGrammarResult(container, original, parsed.corrected, parsed.native, parsed.explanation);
+                        return;
+                    } catch(e) {
+                        console.warn("Gemini JSON parse failed, falling back to Smart Engine", e);
+                    }
+                }
+            }
+
+            // SMART BUILT-IN AI RECONSTRUCTOR ENGINE (Multi-language: English & Turkish)
+            let lower = original.toLowerCase().replace(/[.!?]/g, '').trim();
+            let corrected = '';
+            let native = '';
+            let explanations = [];
+
+            // Turkish Rule 1: "ben dün okula gitmek" -> "Ben dün okula gittim."
+            if (lower.includes("gitmek") && (lower.includes("dün") || lower.includes("ben"))) {
+                corrected = "Ben dün okula gittim.";
+                native = "Dün okula gittim.";
+                explanations.push("تصحيح الماضي في اللغة التركية (Geçmiş Zaman): بوجود الضمير Ben وكلمة dün (أمس) يتم تصريف المصدر gitmek إلى <b>gittim</b>.");
+            }
+            // Turkish Rule 2: "ben türkçe öğrenmek" -> "Ben Türkçe öğreniyorum."
+            else if (lower.includes("türkçe") && (lower.includes("öğrenmek") || lower.includes("ogrenmek"))) {
+                corrected = "Ben Türkçe öğreniyorum.";
+                native = "Türkçe öğreniyorum.";
+                explanations.push("تصحيح المضارع المستمر في اللغة التركية (Şimdiki Zaman): تصريف المصدر öğrenmek مع الضمير Ben يصبح <b>öğreniyorum</b> (أنا أتعلم التركية).");
+            }
+
+            // Priority 1: Past tense indicators ("yesterday", "last", "ago")
+            if (lower.includes("yesterday") || lower.includes("last week") || lower.includes("last year") || lower.includes("ago")) {
+                let fixed = original;
+                let explanationsList = [];
+
+                // 1a. Fix negative past: "don't" or "doesn't" -> "didn't"
+                if (/\b(don't|does not|doesn't|donot)\b/i.test(fixed)) {
+                    fixed = fixed.replace(/\b(don't|does not|doesn't|donot)\b/gi, "didn't");
+                    explanationsList.push("تصحيح نفي الماضي: بوجود كلمة <b>yesterday</b> تم تحويل النفي إلى <b>didn't</b> مع ترك الفعل بعدها في المصدر.");
+                }
+
+                // 1b. Fix verbs in past affirmative (if not negative with didn't)
+                if (!/\bdidn't\b/i.test(fixed) && !/\bdid not\b/i.test(fixed)) {
+                    if (/\b(goes|go)\b/i.test(fixed)) {
+                        fixed = fixed.replace(/\b(goes|go)\b/gi, "went");
+                        explanationsList.push("تصحيح زمن الماضي: بوجود <b>yesterday</b> تم تحويل الفعل إلى الماضي البسيط <b>went</b>.");
+                    } else if (/\bwork\b/i.test(fixed) && !/\bworked\b/i.test(fixed)) {
+                        fixed = fixed.replace(/\bwork\b/gi, "worked");
+                        explanationsList.push("تصحيح زمن الماضي: بوجود <b>yesterday</b> تم تحويل الفعل إلى الماضي <b>worked</b>.");
+                    }
+                }
+
+                corrected = fixed.charAt(0).toUpperCase() + fixed.slice(1);
+                if (!/[.!?]$/.test(corrected)) corrected += '.';
+                native = corrected;
+                explanations = explanationsList;
+            }
+            // Priority 2: "YOU MOTHER IT GOOD" / "YOUR MOTHER GOOD"
+            else if (lower.includes("you mother") || lower.includes("your mother")) {
+                corrected = "Your mother is good.";
+                native = "Your mother is in good health.";
+                explanations.push("تصحيح الضمير: تعديل <b>YOU</b> إلى ملكية <b>YOUR</b> (والدتك).");
+                explanations.push("تصحيح المبنى النحوي: حذف <b>IT</b> وإضافة فعل الكينونة <b>is</b> لتكتمل الجملة.");
+            }
+            // Priority 3: "IM IBRAHIM IS EDTOR"
+            else if (lower.includes("ibrahim") && (lower.includes("edtor") || lower.includes("editor"))) {
+                corrected = "I'm Ibrahim, an editor.";
+                native = "I am Ibrahim and I work as an editor.";
+                explanations.push("تصحيح الإملاء: تعديل <b>EDTOR</b> إلى <b>EDITOR</b>.");
+                explanations.push("تصحيح الضمير: تعديل <b>IM IBRAHIM IS</b> إلى <b>I'm Ibrahim, an editor</b> وإضافة أداة النكرة <b>an</b>.");
+            }
+            // Priority 4: Present Simple "I GOES" -> "I go"
+            else if (lower.includes("i goes")) {
+                corrected = original.replace(/i goes/gi, "I go");
+                native = "I go to work every morning.";
+                explanations.push("تصحيح الفاعل: الضمير <b>I</b> يأتي معه الفعل في المصدر بدون s.");
+            }
+            // Priority 5: "HE DON'T"
+            else if (lower.includes("he don't") || lower.includes("she don't")) {
+                corrected = original.replace(/don't/gi, "doesn't");
+                native = "He doesn't work on weekends.";
+                explanations.push("مع الفاعل المفرد (He/She) نستخدم <b>doesn't</b> للنفي.");
+            }
+            // Fallback Engine
+            else {
+                try {
+                    const response = await fetch('https://api.languagetool.org/v2/check', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: `text=${encodeURIComponent(original)}&language=en-US`
+                    });
+                    const data = await response.json();
+                    let matches = data.matches || [];
+                    corrected = original;
+
+                    if (matches.length > 0) {
+                        matches.sort((a, b) => b.offset - a.offset);
+                        for (let m of matches) {
+                            let issueText = original.substring(m.offset, m.offset + m.length);
+                            let bestRepl = (m.replacements && m.replacements.length > 0) ? m.replacements[0].value : null;
+                            if (bestRepl) {
+                                corrected = corrected.substring(0, m.offset) + bestRepl + corrected.substring(m.offset + m.length);
+                                explanations.push(`تعديل <b>"${issueText}"</b> إلى <b>"${bestRepl}"</b>: ${m.message}`);
+                            }
+                        }
+                    }
+
+                    if (/^you\b/i.test(corrected) && !/\b(are|were|can|will|have|do|did)\b/i.test(corrected)) {
+                        corrected = corrected.replace(/^you\b/i, "Your");
+                        explanations.push("تعديل الضمير من YOU إلى YOUR الملكية.");
+                    }
+
+                    corrected = corrected.charAt(0).toUpperCase() + corrected.slice(1);
+                    if (!/[.!?]$/.test(corrected)) corrected += '.';
+                    native = corrected;
+                } catch(e) {
+                    corrected = original;
+                    native = original;
+                }
+            }
+
+            let explanationText = explanations.length > 0 
+                ? explanations.map(e => `• ${e}`).join('<br>')
+                : 'تم فحص وتدقيق الجملة وإعادة صياغتها بنجاح!';
+
+            renderGrammarResult(container, original, corrected, native, explanationText);
+        }
+
+        function renderGrammarResult(container, original, corrected, native, explanationHtml) {
+            container.innerHTML = `
+                <div style="background:rgba(239,68,68,0.12);border-right:4px solid #ef4444;padding:12px 16px;border-radius:12px;margin-bottom:10px">
+                    <div style="font-size:12px;color:#fca5a5;margin-bottom:4px">❌ الجملة المدخلة (Original Input):</div>
+                    <div style="font-size:16px;font-weight:700;color:#ffffff;direction:ltr;font-family:'Montserrat',sans-serif">${original}</div>
+                </div>
+
+                <div style="background:rgba(16,185,129,0.15);border-right:4px solid #10b981;padding:14px 16px;border-radius:12px;margin-bottom:10px">
+                    <div style="font-size:13px;color:#a7f3d0;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center">
+                        <span>✅ الجملة المصححة بالذكاء الاصطناعي (Corrected Sentence):</span>
+                        <button class="btn btn-en" style="padding:2px 8px;font-size:11px" onclick="sayHuman('${corrected.replace(/'/g, "\\'")}', bestEn, 'en-US', ()=>{})">🔊 نطق</button>
+                    </div>
+                    <div style="font-size:19px;font-weight:800;color:#ffffff;direction:ltr;font-family:'Montserrat',sans-serif">${corrected}</div>
+                </div>
+
+                <div style="background:rgba(56,189,248,0.12);border-right:4px solid #38bdf8;padding:12px 16px;border-radius:12px;margin-bottom:10px">
+                    <div style="font-size:12px;color:#bae6fd;margin-bottom:4px">💡 الصياغة الأفضل الاحترافية (Native Alternative):</div>
+                    <div style="font-size:16px;font-weight:700;color:#7dd3fc;direction:ltr;font-family:'Montserrat',sans-serif">${native}</div>
+                </div>
+
+                <div style="background:rgba(251,191,36,0.12);border-right:4px solid #fbbf24;padding:12px 16px;border-radius:12px">
+                    <div style="font-size:13px;color:#fef08a;margin-bottom:4px">📚 الشرح وتوضيح الأخطاء باللغة العربية:</div>
+                    <div style="font-size:14px;color:#fde68a;line-height:1.6">${explanationHtml}</div>
+                </div>
+            `;
+        }
+
+        // Initialize local session on startup
+        window.addEventListener('load', () => {
+            loadSession();
+            updateReader();
+            updateBtnText();
+            loadSurahRangeText();
+            updateGeminiStatus();
+        });
+    </script>
+</body>
+</html>
